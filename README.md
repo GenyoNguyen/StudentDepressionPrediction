@@ -27,8 +27,8 @@ A web application that helps predict and analyze student depression levels based
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/GenyoNguyen/StudentDepressionPrediction
+cd StudentDepressionPrediction
 ```
 
 2. Start a local server. You can use any of these methods:
@@ -36,24 +36,20 @@ cd <repository-name>
    Using Python:
    ```bash
    # Python 3
-   python -m http.server 3031
+   python -m http.server 3000
    
    # Python 2
-   python -m SimpleHTTPServer 3031
+   python -m SimpleHTTPServer 3000
    ```
 
    Using Node.js:
    ```bash
-   # Install http-server globally
-   npm install -g http-server
-   
-   # Run the server
-   http-server -p 3031
+   npx serve
    ```
 
 3. Open your browser and navigate to:
    ```
-   http://localhost:3031
+   http://localhost:3000
    ```
 
 ## Project Structure
