@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Analysis page">
+    <meta name="keywords" content="analyze, analysis, data">
+    <meta name="author" content="Your Name">
+    <title>Analyze - My Website</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <ul>
+                <li><a href=".">Home</a></li>
+                <li><a href="predict">Predict</a></li>
+                <li><a href="analyze" class="active">Analyze</a></li>
+                <li><a href="about">About</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <img src="static/assets/sun.svg" class="sun-icon" alt="Light mode">
+                <img src="static/assets/moon.svg" class="moon-icon" alt="Dark mode">
+            </button>
+        </div>
+    </header>
+
+    <main class="analyze">
+        <section>
+            <h1>Models & Pricing</h1>
+            <p>Available models in Cursor and their pricing</p>
+            <p>Cursor is offering a wide range of models, including the latest state-of-the-art models.</p>
+
+            <h2 id="pricing">Pricing</h2>
+            <p>All model usage is counted and billed in requests. With Pro plan, you get 500 requests per month. Cursor
+                offers two modes of usage:</p>
+
+            <h3 id="normal">Normal</h3>
+            <p><strong>Requests per model/message</strong></p>
+            <p>Ideal for everyday coding tasks, recommended for most users.</p>
+
+            <h3 id="max">Max</h3>
+            <p><strong>Requests per 1M tokens (MTok)</strong></p>
+            <p>Best for complex reasoning, hard bugs, and agentic tasks.</p>
+
+            <h3 id="request">Request</h3>
+            <p>A request represents a single message sent to the model, which includes your message, any relevant
+                context from your codebase, and the model's response.</p>
+            <p>One request is $0.04</p>
+
+            <h4 id="slow-requests">Slow requests</h4>
+            <p>Slow requests automatically activate when you run out of normal requests. These requests are processed at
+                a lower priority, meaning they are slower and you may experience longer delays compared to normal
+                requests.</p>
+            <p>Slow requests are not available for Max mode.</p>
+
+            <h3 id="normal-mode">Normal mode</h3>
+            <p>In normal mode, each message costs a fixed number of requests based solely on the model you're using,
+                regardless of context. We optimize context management without it affecting your request count.</p>
+
+            <h3 id="max-mode">Max Mode</h3>
+            <p>In Max mode, pricing is calculated based on tokens, with Cursor charging the model provider's API price
+                plus a 20% margin. This includes all tokens from your messages, code files, folders, tool calls, and any
+                other context provided to the model.</p>
+
+            <h2 id="models">Models</h2>
+            <h3 id="claude">Claude 3.7 Sonnet</h3>
+            <h4>Normal Mode</h4>
+            <ul>
+                <li><strong>Provider:</strong> Anthropic</li>
+                <li><strong>Context Window:</strong> 120k</li>
+                <li><strong>Capabilities:</strong> Agent (can use tools), Thinking (uses reasoning tokens)</li>
+                <li><strong>Trait:</strong> Powerful but eager to make changes</li>
+                <li><strong>Cost:</strong> 1 requests/message</li>
+            </ul>
+
+            <h4>Max Mode</h4>
+            <ul>
+                <li><strong>Provider:</strong> Anthropic</li>
+                <li><strong>Context Window:</strong> 200k</li>
+                <li><strong>Capabilities:</strong> Agent (can use tools), Thinking (uses reasoning tokens)</li>
+                <li><strong>Trait:</strong> Powerful but eager to make changes</li>
+                <li><strong>Input Cost:</strong> 3 requests/MTok</li>
+                <li><strong>Cached Input Cost:</strong> 0.3 requests/MTok</li>
+                <li><strong>Output Cost:</strong> 15 requests/MTok</li>
+            </ul>
+
+            <h3 id="capabilities">Capabilities</h3>
+            <h4 id="thinking">Thinking</h4>
+            <p>Enabling Thinking limits the list of models to reasoning models which think through problems step-by-step
+                and have deeper capacity to examine their own reasoning and correct errors.</p>
+            <p>These models often perform better on complex reasoning tasks, though they may require more time to
+                generate their responses.</p>
+
+            <h4 id="agentic">Agentic</h4>
+            <p>Agentic models can be used with Chat's Agent mode. These models are highly capable at making tool calls
+                and perform best with Agent.</p>
+            <p>Submitting an Agent prompt with up to 25 tool calls consumes one request. If your request extends beyond
+                25 tool calls, Cursor will ask if you'd like to continue which will consume a second request.</p>
+
+            <h4 id="max-mode-cap">Max Mode</h4>
+            <p>Some models support Max Mode, which is designed for the most complex and challenging tasks.</p>
+
+            <h3 id="context-windows">Context windows</h3>
+            <p>A context window is the maximum span of tokens (text and code) an LLM can consider at once, including
+                both the input prompt and output generated by the model.</p>
+            <p>Each chat in Cursor maintains its own context window. The more prompts, attached files, and responses
+                included in a session, the larger the context window grows.</p>
+            <p>Cursor actively optimizes the context window as the chat session progresses, intelligently pruning
+                non-essential content while preserving critical code and conversation elements.</p>
+            <p>For best results, it's recommended you take a purpose-based approach to chat management, starting a new
+                session for each unique task.</p>
+        </section>
+
+        <aside class="content-summary">
+            <h4>On this page</h4>
+            <ul>
+                <li><a href="#pricing">Pricing</a>
+                    <ul>
+                        <li><a href="#normal">Normal</a></li>
+                        <li><a href="#max">Max</a></li>
+                        <li><a href="#request">Request</a></li>
+                        <li><a href="#slow-requests">Slow requests</a></li>
+                        <li><a href="#normal-mode">Normal mode</a></li>
+                        <li><a href="#max-mode">Max Mode</a></li>
+                    </ul>
+                </li>
+                <li><a href="#models">Models</a>
+                    <ul>
+                        <li><a href="#claude">Claude 3.7 Sonnet</a></li>
+                    </ul>
+                </li>
+                <li><a href="#capabilities">Capabilities</a>
+                    <ul>
+                        <li><a href="#thinking">Thinking</a></li>
+                        <li><a href="#agentic">Agentic</a></li>
+                        <li><a href="#max-mode-cap">Max Mode</a></li>
+                    </ul>
+                </li>
+                <li><a href="#context-windows">Context windows</a></li>
+            </ul>
+        </aside>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
