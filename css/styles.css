@@ -28,14 +28,15 @@
 }
 
 @font-face {
-    font-family: 'Geist';
-    src: url('../fonts/Geist-VariableFont_wght.ttf') format('truetype-variations');
+    font-family: "Geist";
+    src: url("../fonts/Geist-VariableFont_wght.ttf") format("truetype-variations");
     font-weight: 100 900;
     font-display: swap;
 }
 
 body {
-    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     min-height: 100vh;
@@ -157,11 +158,11 @@ main.analyze {
     text-align: left;
     align-items: flex-start;
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 250px;
     gap: 2rem;
-    max-width: 1400px;
+    max-width: 90%;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 
 .analyze section {
@@ -326,6 +327,66 @@ footer {
     padding: 1rem 0;
     width: 100%;
     border-top: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+/* Dataset Preview Table Styles */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.table-responsive {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    table-layout: auto;
+    min-width: 800px;
+    /* Added to make the table wider */
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    white-space: nowrap;
+}
+
+.data-table th {
+    background-color: rgba(128, 128, 128, 0.1);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.data-table tr:nth-child(even) {
+    background-color: rgba(128, 128, 128, 0.05);
+}
+
+.data-table tr:hover {
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.data-table tr.separator td {
+    height: 20px;
+    background-color: rgba(128, 128, 128, 0.1);
+    padding: 0;
+}
+
+.sample-note {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-align: left;
+    margin-top: 1rem;
 }
 
 /* Form Styles */
@@ -550,5 +611,326 @@ footer {
 
     section h4 {
         font-size: 1.15rem;
+    }
+}
+
+.visualization-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.chart {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.chart img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+@media (max-width: 992px) {
+    .visualization-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .visualization-container {
+        gap: 1.5rem;
+    }
+
+    .chart {
+        padding: 1rem;
+    }
+
+    .chart h3 {
+        font-size: 1rem;
+    }
+}
+
+/* Dataset Analysis Page Styles */
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.dataset-overview {
+    background-color: rgba(128, 128, 128, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+.dataset-overview h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+}
+
+.overview-content,
+.data-description,
+.key-highlights,
+.usage-applications,
+.ethical-note {
+    margin-bottom: 2rem;
+}
+
+.overview-content h3,
+.data-description h3,
+.key-highlights h3,
+.usage-applications h3,
+.ethical-note h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.features-section,
+.target-section,
+.format-section {
+    margin-bottom: 1.5rem;
+}
+
+.features-section h4,
+.target-section h4,
+.format-section h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.data-visualization {
+    background-color: rgba(128, 128, 128, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+.data-visualization h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.visualization-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.chart {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+.chart:last-child {
+    grid-column: span 2;
+}
+
+@media (max-width: 992px) {
+    .visualization-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .chart:last-child {
+        grid-column: span 1;
+    }
+
+    .dataset-overview,
+    .data-visualization {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .visualization-container {
+        gap: 1.5rem;
+    }
+
+    .chart {
+        height: 350px;
+        padding: 1rem;
+    }
+
+    .dataset-overview,
+    .data-visualization {
+        padding: 1rem;
+    }
+}
+
+/* Dataset Samples Section */
+.dataset-samples {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.dataset-samples h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.samples-container {
+    width: 100%;
+    max-width: 100%;
+    /* Allow full width */
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    /* Ensure no overflow */
+}
+
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.sample-section h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(128, 128, 128, 0.15);
+    max-width: calc(85vw - 300px);
+    /* Reduced from 100vw to 85vw */
+    width: 100%;
+    max-height: 600px;
+    position: relative;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    /* Show scrollbar for IE and Edge */
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+    /* Height of horizontal scrollbar */
+    background-color: rgba(128, 128, 128, 0.05);
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.3);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.data-table {
+    width: max-content;
+    /* Allow table to be as wide as its content */
+    min-width: 100%;
+    /* Make sure table is at least as wide as container */
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    background-color: var(--header-bg);
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-right: 1px solid rgba(128, 128, 128, 0.1);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+.data-table tr td:first-child,
+.data-table tr th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background-color: var(--header-bg);
+}
+
+.data-table th {
+    font-weight: 600;
+    color: var(--text-color);
+    background-color: rgba(128, 128, 128, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.data-table tr th:first-child {
+    z-index: 3;
+    /* Higher z-index for the corner cell */
+}
+
+.data-table tbody tr:hover {
+    background-color: rgba(128, 128, 128, 0.05);
+}
+
+.data-table tr.separator td {
+    height: 0.5rem;
+    padding: 0;
+    background-color: rgba(128, 128, 128, 0.05);
+    border-bottom: none;
+}
+
+.sample-note {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .data-table {
+        font-size: 0.75rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.4rem 0.6rem;
+    }
+
+    .table-responsive {
+        max-width: calc(85vw - 2rem);
+        /* Reduced from 100vw to 85vw */
+    }
+
+    .samples-container {
+        max-width: 95%;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 769px) {
+    .samples-container {
+        max-width: 100%;
+        /* Full width on all larger screens */
     }
 }
