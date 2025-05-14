@@ -1,150 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Analysis of Student Depression Dataset" />
+    <meta
+      name="keywords"
+      content="analyze, depression, student, mental health, dataset"
+    />
+    <meta name="author" content="Your Name" />
+    <title>Analyze - Student Depression Prediction</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Analysis page">
-    <meta name="keywords" content="analyze, analysis, data">
-    <meta name="author" content="Your Name">
-    <title>Analyze - My Website</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
+  <body>
     <header>
-        <div>
-            <ul>
-                <li><a href=".">Home</a></li>
-                <li><a href="predict">Predict</a></li>
-                <li><a href="analyze" class="active">Analyze</a></li>
-                <li><a href="about">About</a></li>
-            </ul>
-            <button id="theme-toggle" aria-label="Toggle theme">
-                <img src="static/assets/sun.svg" class="sun-icon" alt="Light mode">
-                <img src="static/assets/moon.svg" class="moon-icon" alt="Dark mode">
-            </button>
-        </div>
+      <div>
+        <ul>
+          <li><a href=".">Home</a></li>
+          <li><a href="predict">Predict</a></li>
+          <li><a href="analyze" class="active">Analyze</a></li>
+          <li><a href="about">About</a></li>
+        </ul>
+        <button id="theme-toggle" aria-label="Toggle theme">
+          <img src="static/assets/sun.svg" class="sun-icon" alt="Light mode" />
+          <img src="static/assets/moon.svg" class="moon-icon" alt="Dark mode" />
+        </button>
+      </div>
     </header>
 
     <main class="analyze">
-        <section>
-            <h1>Models & Pricing</h1>
-            <p>Available models in Cursor and their pricing</p>
-            <p>Cursor is offering a wide range of models, including the latest state-of-the-art models.</p>
+      <section>
+        <h1>Dataset Analysis</h1>
+        <p class="subtitle">Understanding the Student Depression Dataset</p>
 
-            <h2 id="pricing">Pricing</h2>
-            <p>All model usage is counted and billed in requests. With Pro plan, you get 500 requests per month. Cursor
-                offers two modes of usage:</p>
+        <div class="dataset-overview">
+          <h2 id="overview">About Dataset</h2>
+          <p>
+            Student Depression Dataset: Analyzing Mental Health Trends and
+            Predictors Among Students
+          </p>
 
-            <h3 id="normal">Normal</h3>
-            <p><strong>Requests per model/message</strong></p>
-            <p>Ideal for everyday coding tasks, recommended for most users.</p>
+          <div class="overview-content">
+            <h3>Overview</h3>
+            <p>
+              This dataset compiles a wide range of information aimed at
+              understanding, analyzing, and predicting depression levels among
+              students. It is designed for research in psychology, data science,
+              and education, providing insights into factors that contribute to
+              student mental health challenges and aiding in the design of early
+              intervention strategies.
+            </p>
+          </div>
 
-            <h3 id="max">Max</h3>
-            <p><strong>Requests per 1M tokens (MTok)</strong></p>
-            <p>Best for complex reasoning, hard bugs, and agentic tasks.</p>
+          <div class="data-description">
+            <h3 id="data-description">Data Description</h3>
 
-            <h3 id="request">Request</h3>
-            <p>A request represents a single message sent to the model, which includes your message, any relevant
-                context from your codebase, and the model's response.</p>
-            <p>One request is $0.04</p>
+            <div class="format-section">
+              <h4 id="format">Format:</h4>
+              <p>CSV (each row represents an individual student)</p>
+            </div>
 
-            <h4 id="slow-requests">Slow requests</h4>
-            <p>Slow requests automatically activate when you run out of normal requests. These requests are processed at
-                a lower priority, meaning they are slower and you may experience longer delays compared to normal
-                requests.</p>
-            <p>Slow requests are not available for Max mode.</p>
-
-            <h3 id="normal-mode">Normal mode</h3>
-            <p>In normal mode, each message costs a fixed number of requests based solely on the model you're using,
-                regardless of context. We optimize context management without it affecting your request count.</p>
-
-            <h3 id="max-mode">Max Mode</h3>
-            <p>In Max mode, pricing is calculated based on tokens, with Cursor charging the model provider's API price
-                plus a 20% margin. This includes all tokens from your messages, code files, folders, tool calls, and any
-                other context provided to the model.</p>
-
-            <h2 id="models">Models</h2>
-            <h3 id="claude">Claude 3.7 Sonnet</h3>
-            <h4>Normal Mode</h4>
-            <ul>
-                <li><strong>Provider:</strong> Anthropic</li>
-                <li><strong>Context Window:</strong> 120k</li>
-                <li><strong>Capabilities:</strong> Agent (can use tools), Thinking (uses reasoning tokens)</li>
-                <li><strong>Trait:</strong> Powerful but eager to make changes</li>
-                <li><strong>Cost:</strong> 1 requests/message</li>
-            </ul>
-
-            <h4>Max Mode</h4>
-            <ul>
-                <li><strong>Provider:</strong> Anthropic</li>
-                <li><strong>Context Window:</strong> 200k</li>
-                <li><strong>Capabilities:</strong> Agent (can use tools), Thinking (uses reasoning tokens)</li>
-                <li><strong>Trait:</strong> Powerful but eager to make changes</li>
-                <li><strong>Input Cost:</strong> 3 requests/MTok</li>
-                <li><strong>Cached Input Cost:</strong> 0.3 requests/MTok</li>
-                <li><strong>Output Cost:</strong> 15 requests/MTok</li>
-            </ul>
-
-            <h3 id="capabilities">Capabilities</h3>
-            <h4 id="thinking">Thinking</h4>
-            <p>Enabling Thinking limits the list of models to reasoning models which think through problems step-by-step
-                and have deeper capacity to examine their own reasoning and correct errors.</p>
-            <p>These models often perform better on complex reasoning tasks, though they may require more time to
-                generate their responses.</p>
-
-            <h4 id="agentic">Agentic</h4>
-            <p>Agentic models can be used with Chat's Agent mode. These models are highly capable at making tool calls
-                and perform best with Agent.</p>
-            <p>Submitting an Agent prompt with up to 25 tool calls consumes one request. If your request extends beyond
-                25 tool calls, Cursor will ask if you'd like to continue which will consume a second request.</p>
-
-            <h4 id="max-mode-cap">Max Mode</h4>
-            <p>Some models support Max Mode, which is designed for the most complex and challenging tasks.</p>
-
-            <h3 id="context-windows">Context windows</h3>
-            <p>A context window is the maximum span of tokens (text and code) an LLM can consider at once, including
-                both the input prompt and output generated by the model.</p>
-            <p>Each chat in Cursor maintains its own context window. The more prompts, attached files, and responses
-                included in a session, the larger the context window grows.</p>
-            <p>Cursor actively optimizes the context window as the chat session progresses, intelligently pruning
-                non-essential content while preserving critical code and conversation elements.</p>
-            <p>For best results, it's recommended you take a purpose-based approach to chat management, starting a new
-                session for each unique task.</p>
-        </section>
-
-        <aside class="content-summary">
-            <h4>On this page</h4>
-            <ul>
-                <li><a href="#pricing">Pricing</a>
-                    <ul>
-                        <li><a href="#normal">Normal</a></li>
-                        <li><a href="#max">Max</a></li>
-                        <li><a href="#request">Request</a></li>
-                        <li><a href="#slow-requests">Slow requests</a></li>
-                        <li><a href="#normal-mode">Normal mode</a></li>
-                        <li><a href="#max-mode">Max Mode</a></li>
-                    </ul>
+            <div class="features-section">
+              <h4 id="features">Features:</h4>
+              <ul>
+                <li><strong>ID:</strong> Unique identifier for each student</li>
+                <li><strong>Demographics:</strong> Age, Gender, City</li>
+                <li>
+                  <strong>Academic Indicators:</strong> CGPA, Academic Pressure,
+                  Study Satisfaction
                 </li>
-                <li><a href="#models">Models</a>
-                    <ul>
-                        <li><a href="#claude">Claude 3.7 Sonnet</a></li>
-                    </ul>
+                <li>
+                  <strong>Lifestyle & Wellbeing:</strong> Sleep Duration,
+                  Dietary Habits, Work Pressure, Job Satisfaction, Work/Study
+                  Hours
                 </li>
-                <li><a href="#capabilities">Capabilities</a>
-                    <ul>
-                        <li><a href="#thinking">Thinking</a></li>
-                        <li><a href="#agentic">Agentic</a></li>
-                        <li><a href="#max-mode-cap">Max Mode</a></li>
-                    </ul>
+                <li>
+                  <strong>Additional Factors:</strong> Profession, Degree,
+                  Financial Stress, Family History of Mental Illness, and
+                  whether the student has ever had suicidal thoughts
                 </li>
-                <li><a href="#context-windows">Context windows</a></li>
+              </ul>
+            </div>
+
+            <div class="target-section">
+              <h4 id="target-variable">Target Variable:</h4>
+              <ul>
+                <li>
+                  <strong>Depression_Status:</strong> A binary indicator (0/1 or
+                  Yes/No) that denotes whether a student is experiencing
+                  depression
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="key-highlights">
+            <h3 id="key-highlights">Key Highlights</h3>
+            <ul>
+              <li>
+                <strong>Multifaceted Data:</strong> Integrates demographic,
+                academic, and lifestyle factors to offer a comprehensive view of
+                student wellbeing.
+              </li>
+              <li>
+                <strong>Ethical Considerations:</strong> Data collection adhered
+                to strict ethical standards with an emphasis on privacy,
+                informed consent, and anonymization.
+              </li>
+              <li>
+                <strong>Research & Practical Applications:</strong> Ideal for
+                developing predictive models, conducting statistical analyses,
+                and informing mental health intervention strategies in
+                educational environments.
+              </li>
             </ul>
-        </aside>
+          </div>
+
+          <div class="usage-applications">
+            <h3 id="usage-applications">Usage & Potential Applications</h3>
+            <ul>
+              <li>
+                <strong>Academic Research:</strong> Explore correlations between
+                academic pressures and mental health trends.
+              </li>
+              <li>
+                <strong>Data Science Projects:</strong> Build predictive models
+                to identify at-risk students based on various indicators.
+              </li>
+              <li>
+                <strong>Policy Making:</strong> Inform the development of
+                targeted mental health support programs within academic
+                institutions.
+              </li>
+            </ul>
+          </div>
+
+          <div class="ethical-note">
+            <h3 id="ethical-note">Ethical Note</h3>
+            <p>
+              Due to the sensitive nature of the data, please ensure that any
+              analysis or published results respect privacy and ethical
+              guidelines. Users of this dataset should be mindful of the ethical
+              implications when interpreting and sharing insights.
+            </p>
+          </div>
+
+          <div class="dataset-samples">
+            <h3 id="dataset-samples">Dataset Samples</h3>
+            <div class="samples-container">
+              <div class="sample-section">
+                <h4>Dataset Preview</h4>
+                <div class="table-container">
+                  <div class="table-responsive">
+                    <table class="data-table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>id</th>
+                          <th>Gender</th>
+                          <th>Age</th>
+                          <th>City</th>
+                          <th>Profession</th>
+                          <th>Academic Pressure</th>
+                          <th>Work Pressure</th>
+                          <th>CGPA</th>
+                          <th>Study Satisfaction</th>
+                          <th>Job Satisfaction</th>
+                          <th>Sleep Duration</th>
+                          <th>Dietary Habits</th>
+                          <th>Degree</th>
+                          <th>Have you ever had suicidal thoughts?</th>
+                          <th>Work/Study Hours</th>
+                          <th>Financial Stress</th>
+                          <th>Family History of Mental Illness</th>
+                          <th>Depression</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>0</td>
+                          <td>2</td>
+                          <td>Male</td>
+                          <td>33.0</td>
+                          <td>Visakhapatnam</td>
+                          <td>Student</td>
+                          <td>5.0</td>
+                          <td>0.0</td>
+                          <td>8.97</td>
+                          <td>2.0</td>
+                          <td>0.0</td>
+                          <td>5-6 hours</td>
+                          <td>Healthy</td>
+                          <td>B.Pharm</td>
+                          <td>Yes</td>
+                          <td>3.0</td>
+                          <td>1.0</td>
+                          <td>No</td>
+                          <td>1</td>
+                        </tr>
+                        <tr>
+                          <td>1</td>
+                          <td>8</td>
+                          <td>Female</td>
+                          <td>24.0</td>
+                          <td>Bangalore</td>
+                          <td>Student</td>
+                          <td>2.0</td>
+                          <td>0.0</td>
+                          <td>5.90</td>
+                          <td>5.0</td>
+                          <td>0.0</td>
+                          <td>5-6 hours</td>
+                          <td>Moderate</td>
+                          <td>BSc</td>
+                          <td>No</td>
+                          <td>3.0</td>
+                          <td>2.0</td>
+                          <td>Yes</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>26</td>
+                          <td>Male</td>
+                          <td>31.0</td>
+                          <td>Srinagar</td>
+                          <td>Student</td>
+                          <td>3.0</td>
+                          <td>0.0</td>
+                          <td>7.03</td>
+                          <td>5.0</td>
+                          <td>0.0</td>
+                          <td>Less than 5 hours</td>
+                          <td>Healthy</td>
+                          <td>BA</td>
+                          <td>No</td>
+                          <td>9.0</td>
+                          <td>1.0</td>
+                          <td>Yes</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>30</td>
+                          <td>Female</td>
+                          <td>28.0</td>
+                          <td>Varanasi</td>
+                          <td>Student</td>
+                          <td>3.0</td>
+                          <td>0.0</td>
+                          <td>5.59</td>
+                          <td>2.0</td>
+                          <td>0.0</td>
+                          <td>7-8 hours</td>
+                          <td>Moderate</td>
+                          <td>BCA</td>
+                          <td>Yes</td>
+                          <td>4.0</td>
+                          <td>5.0</td>
+                          <td>Yes</td>
+                          <td>1</td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>32</td>
+                          <td>Female</td>
+                          <td>25.0</td>
+                          <td>Jaipur</td>
+                          <td>Student</td>
+                          <td>4.0</td>
+                          <td>0.0</td>
+                          <td>8.13</td>
+                          <td>3.0</td>
+                          <td>0.0</td>
+                          <td>5-6 hours</td>
+                          <td>Moderate</td>
+                          <td>M.Tech</td>
+                          <td>Yes</td>
+                          <td>1.0</td>
+                          <td>1.0</td>
+                          <td>No</td>
+                          <td>0</td>
+                        </tr>
+                        <tr class="separator">
+                          <td colspan="19"></td>
+                        </tr>
+                        <tr>
+                          <td>27686</td>
+                          <td>140685</td>
+                          <td>Female</td>
+                          <td>27.0</td>
+                          <td>Surat</td>
+                          <td>Student</td>
+                          <td>5.0</td>
+                          <td>0.0</td>
+                          <td>5.75</td>
+                          <td>5.0</td>
+                          <td>0.0</td>
+                          <td>5-6 hours</td>
+                          <td>Unhealthy</td>
+                          <td>Class 12</td>
+                          <td>Yes</td>
+                          <td>7.0</td>
+                          <td>1.0</td>
+                          <td>Yes</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>27687</td>
+                          <td>140686</td>
+                          <td>Male</td>
+                          <td>27.0</td>
+                          <td>Ludhiana</td>
+                          <td>Student</td>
+                          <td>2.0</td>
+                          <td>0.0</td>
+                          <td>9.40</td>
+                          <td>3.0</td>
+                          <td>0.0</td>
+                          <td>Less than 5 hours</td>
+                          <td>Healthy</td>
+                          <td>MSc</td>
+                          <td>No</td>
+                          <td>0.0</td>
+                          <td>3.0</td>
+                          <td>Yes</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>27688</td>
+                          <td>140689</td>
+                          <td>Male</td>
+                          <td>31.0</td>
+                          <td>Faridabad</td>
+                          <td>Student</td>
+                          <td>3.0</td>
+                          <td>0.0</td>
+                          <td>6.61</td>
+                          <td>4.0</td>
+                          <td>0.0</td>
+                          <td>5-6 hours</td>
+                          <td>Unhealthy</td>
+                          <td>M.Tech</td>
+                          <td>No</td>
+                          <td>5.0</td>
+                          <td>2.0</td>
+                          <td>No</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>27689</td>
+                          <td>140690</td>
+                          <td>Female</td>
+                          <td>18.0</td>
+                          <td>Ludhiana</td>
+                          <td>Student</td>
+                          <td>5.0</td>
+                          <td>0.0</td>
+                          <td>6.88</td>
+                          <td>2.0</td>
+                          <td>0.0</td>
+                          <td>Less than 5 hours</td>
+                          <td>Healthy</td>
+                          <td>Class 12</td>
+                          <td>Yes</td>
+                          <td>10.0</td>
+                          <td>5.0</td>
+                          <td>No</td>
+                          <td>1</td>
+                        </tr>
+                        <tr>
+                          <td>27690</td>
+                          <td>140699</td>
+                          <td>Male</td>
+                          <td>27.0</td>
+                          <td>Patna</td>
+                          <td>Student</td>
+                          <td>4.0</td>
+                          <td>0.0</td>
+                          <td>9.24</td>
+                          <td>1.0</td>
+                          <td>0.0</td>
+                          <td>Less than 5 hours</td>
+                          <td>Healthy</td>
+                          <td>BCA</td>
+                          <td>Yes</td>
+                          <td>2.0</td>
+                          <td>3.0</td>
+                          <td>Yes</td>
+                          <td>1</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="sample-note">
+              Note: Showing the first 5 and last 5 samples from the dataset
+              (total rows: 27,901).
+            </p>
+          </div>
+        </div>
+
+        <div class="data-visualization">
+          <h2 id="data-visualization">Data Visualization</h2>
+          <div class="visualization-container">
+            <div class="chart" id="age-distribution">
+              <!-- Age distribution chart will be rendered here -->
+            </div>
+            <div class="chart" id="gender-distribution">
+              <!-- Gender distribution chart will be rendered here -->
+            </div>
+            <div class="chart" id="depression-factors">
+              <!-- Depression factors correlation chart will be rendered here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="content-summary">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#overview">About Dataset</a></li>
+          <li>
+            <a href="#data-description">Data Description</a>
+            <ul>
+              <li><a href="#format">Format</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#target-variable">Target Variable</a></li>
+            </ul>
+          </li>
+          <li><a href="#key-highlights">Key Highlights</a></li>
+          <li><a href="#usage-applications">Usage & Applications</a></li>
+          <li><a href="#ethical-note">Ethical Note</a></li>
+          <li><a href="#dataset-samples">Dataset Samples</a></li>
+          <li><a href="#data-visualization">Data Visualization</a></li>
+        </ul>
+      </aside>
     </main>
 
     <script src="js/script.js"></script>
-</body>
-
+    <!-- Add chart.js or any other visualization library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/analyze.js"></script>
+  </body>
 </html>
