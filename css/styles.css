@@ -286,7 +286,7 @@ section strong {
 
 #predict h1 {
     position: fixed;
-    top: 5.5rem;
+    top: 4.5rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -336,6 +336,23 @@ footer {
     background-color: var(--header-bg);
     border-radius: 12px;
     box-shadow: 0 4px 6px var(--form-shadow);
+}
+
+.model-selection {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.model-selection label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.model-selection select {
+    font-size: 1rem;
+    padding: 0.75rem;
 }
 
 .form-step {
