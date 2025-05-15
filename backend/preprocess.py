@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 
@@ -16,7 +17,11 @@ class Preprocess:
             self.__cat_dict[feature] = columns
         
         self.scaler = StandardScaler()
-        self.scaler.fit(self.__data)
+
+        X_train, _ = train_test_split(self.__data, test_size=0.2, random_state=42)
+
+        self.scaler = StandardScaler()
+        self.scaler.fit(X_train)
 
     def preprocess(self, data):
         sleep_duration_mapping = {
