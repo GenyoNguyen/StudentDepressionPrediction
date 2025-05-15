@@ -60,6 +60,7 @@ cd StudentDepressionPrediction
 ├── predict.html        # Prediction form
 ├── analyze.html        # Analysis page
 ├── about.html          # About page
+├── backend/           # Backend API (see backend/README.md for details)
 ├── css/
 │   └── styles.css      # Main stylesheet
 ├── js/
@@ -68,6 +69,8 @@ cd StudentDepressionPrediction
 │   └── assets/         # Icons and images
 └── fonts/             # Custom fonts
 ```
+
+For detailed information about the backend API, please refer to [backend/README.md](backend/README.md).
 
 ## Development
 

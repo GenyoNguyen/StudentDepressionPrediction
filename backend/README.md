@@ -6,8 +6,8 @@ This is the backend API for the Student Depression Prediction System, built with
 
 1. Create a virtual environment:
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+conda create -n <YOUR ENV NAME> python=3.11.1
+pip install pip==24.1.2
 ```
 
 2. Install dependencies:
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 1. Start the development server:
 ```bash
-uvicorn main:app --reload
+python main.py
 ```
 
 The API will be available at `http://localhost:8000`
@@ -42,15 +42,10 @@ The project structure is organized as follows:
 ```
 backend/
 ├── main.py           # Main FastAPI application
-├── config.py         # Configuration settings
+├── models.py         # Data models and schemas
+├── preprocess.py     # Data preprocessing utilities
 ├── requirements.txt  # Project dependencies
+├── models/          # ML model related files
+├── scratch/         # Development and testing files
 └── README.md        # This file
 ```
-
-## Environment Variables
-
-Create a `.env` file in the root directory with the following variables:
-```
-DEBUG=True
-API_VERSION=1.0.0
-``` 
