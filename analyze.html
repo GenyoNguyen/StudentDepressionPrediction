@@ -11,6 +11,24 @@
     <meta name="author" content="Your Name" />
     <title>Analyze - Student Depression Prediction</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .chart-analysis {
+        margin-top: 15px;
+        padding: 10px;
+        font-size: 0.95em;
+        line-height: 1.5;
+        color: var(--text-color);
+      }
+      .chart.full-width {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+      .chart.full-width img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
   </head>
 
   <body>
@@ -406,12 +424,21 @@
         <div class="data-visualization">
           <h2 id="data-visualization">Data Visualization</h2>
           <div class="visualization-container">
+            <div class="chart full-width">
+              <h3>Boxplot of Numerical Features</h3>
+              <img
+                src="static/dataset/plot_data/boxplot_numfeatures.png"
+                alt="Boxplot of Numerical Features"
+              />
+              <p class="chart-analysis">This boxplot visualization shows the distribution and statistical properties of numerical features in our dataset, helping identify outliers and understand the spread of values across different variables.</p>
+            </div>
             <div class="chart">
               <h3>Distribution of Depression among Students</h3>
               <img
                 src="static/dataset/plot_data/Distribution_of_Depression_among_Students.png"
                 alt="Distribution of Depression among Students"
               />
+              <p class="chart-analysis">The distribution shows the overall prevalence of depression among students. This helps us understand the general mental health landscape in the student population.</p>
             </div>
             <div class="chart">
               <h3>Depression Distribution by Gender</h3>
@@ -419,6 +446,7 @@
                 src="static/dataset/plot_data/Depresssion_Distribution_by_Gender.png"
                 alt="Depression Distribution by Gender"
               />
+              <p class="chart-analysis">This visualization reveals any gender-based patterns in depression rates, helping identify if certain genders face higher mental health challenges.</p>
             </div>
             <div class="chart">
               <h3>Depression Distribution by Sleep Duration</h3>
@@ -426,13 +454,7 @@
                 src="static/dataset/plot_data/Depression_Distribution_by_Sleep_Duration.png"
                 alt="Depression Distribution by Sleep Duration"
               />
-            </div>
-            <div class="chart">
-              <h3>Depression Distribution by City</h3>
-              <img
-                src="static/dataset/plot_data/Depression_Distribution_by_City.png"
-                alt="Depression Distribution by City"
-              />
+              <p class="chart-analysis">The relationship between sleep duration and depression highlights the crucial connection between sleep quality and mental health in students.</p>
             </div>
             <div class="chart">
               <h3>Depression Distribution by Degree</h3>
@@ -440,6 +462,7 @@
                 src="static/dataset/plot_data/Depression_Distribution_by_Degree.png"
                 alt="Depression Distribution by Degree"
               />
+              <p class="chart-analysis">This chart shows how depression rates vary across different academic programs, indicating which fields of study might be associated with higher stress levels.</p>
             </div>
             <div class="chart">
               <h3>Depression Distribution by Dietary Habits</h3>
@@ -447,6 +470,7 @@
                 src="static/dataset/plot_data/Depression_Distribution_by_Dietary_Habits.png"
                 alt="Depression Distribution by Dietary Habits"
               />
+              <p class="chart-analysis">The correlation between dietary habits and depression demonstrates the impact of nutrition on mental health among students.</p>
             </div>
             <div class="chart">
               <h3>Depression Distribution by Profession</h3>
@@ -454,15 +478,15 @@
                 src="static/dataset/plot_data/Depression_Distribution_by_Profession.png"
                 alt="Depression Distribution by Profession"
               />
+              <p class="chart-analysis">This visualization shows how different professional roles affect depression rates, particularly for students who are also working.</p>
             </div>
             <div class="chart">
-              <h3>
-                Depression Distribution by Family History of Mental Illness
-              </h3>
+              <h3>Depression Distribution by Family History of Mental Illness</h3>
               <img
                 src="static/dataset/plot_data/Depression_Distribution_by_Family_History_of_Mental_Illness.png"
                 alt="Depression Distribution by Family History of Mental Illness"
               />
+              <p class="chart-analysis">The relationship between family history and depression rates helps understand the genetic and environmental factors in mental health.</p>
             </div>
             <div class="chart">
               <h3>Depression Distribution by Suicidal Thoughts</h3>
@@ -470,13 +494,15 @@
                 src="static/dataset/plot_data/Depression_Distribution_by_Haveyoueverhadsuicidalthoughts.png"
                 alt="Depression Distribution by Suicidal Thoughts"
               />
+              <p class="chart-analysis">This critical visualization shows the correlation between depression and suicidal thoughts, highlighting the importance of mental health intervention.</p>
             </div>
-            <div class="chart">
+            <div class="chart full-width">
               <h3>Distribution of Numerical Features</h3>
               <img
                 src="static/dataset/plot_data/Distribution_of_Numerical_Features.png"
                 alt="Distribution of Numerical Features"
               />
+              <p class="chart-analysis">The distribution of numerical features provides insights into the range and patterns of various quantitative factors affecting student mental health.</p>
             </div>
             <div class="chart">
               <h3>Feature Correlation Heatmap</h3>
@@ -484,8 +510,22 @@
                 src="static/dataset/plot_data/heatmap.png"
                 alt="Feature Correlation Heatmap"
               />
+              <p class="chart-analysis">The heatmap reveals the relationships between different features, helping identify which factors are most strongly associated with depression.</p>
             </div>
           </div>
+        </div>
+        <div class="data-preprocessing" style="background-color: rgba(128, 128, 128, 0.05); border-radius: 12px; padding: 2rem; border: 1px solid rgba(128, 128, 128, 0.1); margin-top: 2rem;">
+          <h2 id="data-preprocessing">Data Preprocessing</h2>
+          <ul>
+            <li><strong>Chuyển đổi kiểu dữ liệu:</strong> Các cột phân loại như Gender, City, Profession, Dietary Habits, Degree, ... được chuyển sang kiểu <code>category</code> để tối ưu bộ nhớ và xử lý.</li>
+            <li><strong>Chuẩn hóa giá trị:</strong> Cột Sleep Duration được ánh xạ từ giá trị text sang số (ví dụ: 'Less than 5 hours' → 1, '5-6 hours' → 2, ...).</li>
+            <li><strong>Kiểm tra và xử lý missing values:</strong> Bộ dữ liệu không có giá trị thiếu nên không cần bổ sung hoặc loại bỏ dòng.</li>
+            <li><strong>Kiểm tra và loại bỏ dòng trùng lặp:</strong> Không có dòng dữ liệu trùng lặp.</li>
+            <li><strong>Xử lý outlier:</strong> Các dòng có giá trị ngoại lai được loại bỏ để tăng độ chính xác mô hình.</li>
+            <li><strong>Loại bỏ cột không cần thiết:</strong> Loại bỏ các cột như id, Profession, City,... không phục vụ cho việc dự đoán.</li>
+            <li><strong>Encoding biến phân loại:</strong> Sử dụng One-hot encoding cho các biến phân loại để đưa về dạng số.</li>
+            <li><strong>Chuẩn hóa dữ liệu:</strong> Sử dụng StandardScaler để chuẩn hóa các đặc trưng đầu vào về cùng phân phối chuẩn.</li>
+          </ul>
         </div>
       </section>
 
@@ -506,6 +546,7 @@
           <li><a href="#ethical-note">Ethical Note</a></li>
           <li><a href="#dataset-samples">Dataset Samples</a></li>
           <li><a href="#data-visualization">Data Visualization</a></li>
+          <li><a href="#data-preprocessing">Data Preprocessing</a></li>
         </ul>
       </aside>
     </main>
