@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Training and Results - Student Depression Prediction"
+    />
+    <meta
+      name="keywords"
+      content="model training, results, evaluation, machine learning, depression prediction"
+    />
+    <meta name="author" content="Your Name" />
+    <title>Models & Results - Student Depression Prediction</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .chart-analysis {
+        margin-top: 15px;
+        padding: 10px;
+        font-size: 0.95em;
+        line-height: 1.5;
+        color: var(--text-color);
+      }
+      .results-section img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid rgba(128, 128, 128, 0.1);
+      }
+      .model-report {
+        background: rgba(128, 128, 128, 0.05);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(128, 128, 128, 0.1);
+        width: 100%;
+        max-width: unset;
+        box-sizing: border-box;
+        grid-column: 1 / -1;
+      }
+      .model-metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .metric-card {
+        background: var(--header-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .metric-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--accent-color);
+      }
+      .visualization-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 1rem 0;
+      }
+      .visualization-group > div {
+        background: var(--header-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid rgba(128, 128, 128, 0.1);
+      }
+      .visualization-group img {
+        width: 100%;
+        height: auto;
+        margin: 1rem 0;
+      }
+      .visualization-group h5 {
+        margin: 0;
+        color: var(--text-color);
+      }
+      .model-metrics-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      .model-metrics-group h5 {
+        text-align: center;
+        margin-bottom: 0.5rem;
+        font-size: 1.1em;
+        color: var(--text-color);
+      }
+      .classification-report {
+        background: var(--header-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        white-space: pre-wrap;
+        font-family: monospace;
+        overflow-x: auto;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <ul>
+          <li><a href=".">Home</a></li>
+          <li><a href="predict">Predict</a></li>
+          <li><a href="analyze">Analyze</a></li>
+          <li><a href="train_results" class="active">Models & Results</a></li>
+          <li><a href="about">About</a></li>
+        </ul>
+        <button id="theme-toggle" aria-label="Toggle theme">
+          <img src="static/assets/sun.svg" class="sun-icon" alt="Light mode" />
+          <img src="static/assets/moon.svg" class="moon-icon" alt="Dark mode" />
+        </button>
+      </div>
+    </header>
+
+    <main class="analyze">
+      <section>
+        <h1>Model Training & Evaluation</h1>
+        <p class="subtitle">
+          Performance Analysis of Depression Prediction Models
+        </p>
+
+        <section class="train-section">
+          <h2 id="model-training">Model Training</h2>
+          <div class="model-report">
+            <h3>Selected Models</h3>
+            <ul>
+              <li>
+                <strong>Logistic Regression:</strong> Mô hình tuyến tính cơ bản,
+                dễ giải thích, phù hợp với bài toán phân loại nhị phân.
+              </li>
+              <li>
+                <strong>K-Nearest Neighbors (KNN):</strong> Đơn giản, không giả
+                định phân phối dữ liệu, hiệu quả với dữ liệu nhỏ và vừa.
+              </li>
+              <li>
+                <strong>Random Forest:</strong> Mô hình ensemble mạnh, giảm
+                overfitting, cho phép đánh giá tầm quan trọng của đặc trưng.
+              </li>
+              <li>
+                <strong>Support Vector Machine (SVM):</strong> Hiệu quả với dữ
+                liệu phân lớp rõ ràng, có thể mở rộng với kernel trick.
+              </li>
+            </ul>
+            <h4>Lý do chọn:</h4>
+            <ul>
+              <li>
+                Đa dạng hóa mô hình để so sánh hiệu quả trên nhiều khía cạnh.
+              </li>
+              <li>
+                Kết hợp cả mô hình đơn giản (Logistic Regression, KNN) và phức
+                tạp (Random Forest, SVM).
+              </li>
+              <li>
+                Phù hợp với dữ liệu có nhiều biến phân loại và số lượng mẫu lớn.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="results-section">
+          <h2 id="results-evaluation">Results & Evaluation</h2>
+          <p class="subtitle">Model Performance Analysis</p>
+
+          <div class="model-report">
+            <h3 id="logistic-regression">Logistic Regression</h3>
+            <div class="model-metrics-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.83      0.80      0.81      2268
+           1       0.87      0.88      0.87      3301
+
+    accuracy                           0.85      5569
+   macro avg       0.85      0.84      0.84      5569
+weighted avg       0.85      0.85      0.85      5569
+                </pre>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.82      0.81      0.81      2268
+           1       0.86      0.87      0.87      3301
+
+    accuracy                           0.84      5569
+   macro avg       0.84      0.84      0.84      5569
+weighted avg       0.84      0.84      0.84      5569
+                </pre>
+              </div>
+            </div>
+            <h4>ROC Curve Analysis</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/logreg_sklearn.png"
+                  alt="ROC Curve Logistic Regression (sklearn)"
+                />
+                <p class="chart-analysis">
+                  The ROC curve shows the model's ability to discriminate
+                  between classes at various thresholds, with an AUC score
+                  indicating strong predictive performance.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/logreg_scratch.png"
+                  alt="ROC Curve Logistic Regression (scratch)"
+                />
+                <p class="chart-analysis">
+                  Our custom implementation achieves comparable performance to
+                  the scikit-learn version, validating our algorithm's
+                  effectiveness.
+                </p>
+              </div>
+            </div>
+            <h4>Confusion Matrix</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/logreg_sklearn.png"
+                  alt="Confusion Matrix Logistic Regression (sklearn)"
+                />
+                <p class="chart-analysis">
+                  The confusion matrix reveals balanced performance in
+                  predicting both depressed and non-depressed cases.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/logreg_scratch.png"
+                  alt="Confusion Matrix Logistic Regression (scratch)"
+                />
+                <p class="chart-analysis">
+                  Similar distribution of predictions between our implementation
+                  and scikit-learn's, showing consistent performance.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-report">
+            <h3 id="knn">K-Nearest Neighbors (KNN)</h3>
+            <div class="model-metrics-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.81      0.79      0.80      2268
+           1       0.83      0.85      0.84      3301
+
+    accuracy                           0.82      5569
+   macro avg       0.82      0.82      0.82      5569
+weighted avg       0.82      0.82      0.82      5569
+                </pre>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.80      0.78      0.79      2268
+           1       0.82      0.84      0.83      3301
+
+    accuracy                           0.81      5569
+   macro avg       0.81      0.81      0.81      5569
+weighted avg       0.81      0.81      0.81      5569
+                </pre>
+              </div>
+            </div>
+            <h4>ROC Curve Analysis</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/knn_sklearn.png"
+                  alt="ROC Curve KNN (sklearn)"
+                />
+                <p class="chart-analysis">
+                  KNN shows good discrimination ability with a smooth ROC curve,
+                  though slightly lower AUC than Logistic Regression.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/knn_scratch.png"
+                  alt="ROC Curve KNN (scratch)"
+                />
+                <p class="chart-analysis">
+                  Our implementation closely matches the scikit-learn version,
+                  demonstrating successful replication of the algorithm.
+                </p>
+              </div>
+            </div>
+            <h4>Confusion Matrix</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/knn_sklearn.png"
+                  alt="Confusion Matrix KNN (sklearn)"
+                />
+                <p class="chart-analysis">
+                  KNN shows balanced performance between false positives and
+                  false negatives.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/knn_scratch.png"
+                  alt="Confusion Matrix KNN (scratch)"
+                />
+                <p class="chart-analysis">
+                  Similar prediction patterns between implementations indicate
+                  robust algorithm design.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-report">
+            <h3 id="random-forest">Random Forest</h3>
+            <div class="model-metrics-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.88      0.87      0.87      2268
+           1       0.89      0.90      0.89      3301
+
+    accuracy                           0.88      5569
+   macro avg       0.88      0.88      0.88      5569
+weighted avg       0.88      0.88      0.88      5569
+                </pre>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.87      0.86      0.87      2268
+           1       0.89      0.90      0.89      3301
+
+    accuracy                           0.87      5569
+   macro avg       0.88      0.88      0.88      5569
+weighted avg       0.87      0.87      0.87      5569
+                </pre>
+              </div>
+            </div>
+            <h4>ROC Curve Analysis</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/rf_sklearn.png"
+                  alt="ROC Curve Random Forest (sklearn)"
+                />
+                <p class="chart-analysis">
+                  Random Forest achieves the highest AUC score, showing superior
+                  discrimination ability.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/rf_scratch.png"
+                  alt="ROC Curve Random Forest (scratch)"
+                />
+                <p class="chart-analysis">
+                  Our implementation maintains high performance comparable to
+                  scikit-learn's version.
+                </p>
+              </div>
+            </div>
+            <h4>Confusion Matrix</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/rf_sklearn.png"
+                  alt="Confusion Matrix Random Forest (sklearn)"
+                />
+                <p class="chart-analysis">
+                  Strong performance across all metrics with minimal
+                  misclassifications.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/rf_scratch.png"
+                  alt="Confusion Matrix Random Forest (scratch)"
+                />
+                <p class="chart-analysis">
+                  Consistent performance between implementations validates our
+                  ensemble approach.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-report">
+            <h3 id="svm">Support Vector Machine (SVM)</h3>
+            <div class="model-metrics-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.85      0.83      0.84      2268
+           1       0.87      0.89      0.88      3301
+
+    accuracy                           0.86      5569
+   macro avg       0.86      0.86      0.86      5569
+weighted avg       0.86      0.86      0.86      5569
+                </pre>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <pre class="classification-report">
+              precision    recall  f1-score   support
+
+           0       0.84      0.82      0.83      2268
+           1       0.87      0.88      0.88      3301
+
+    accuracy                           0.85      5569
+   macro avg       0.85      0.85      0.85      5569
+weighted avg       0.85      0.85      0.85      5569
+                </pre>
+              </div>
+            </div>
+            <h4>ROC Curve Analysis</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/svm_sklearn.png"
+                  alt="ROC Curve SVM (sklearn)"
+                />
+                <p class="chart-analysis">
+                  SVM shows strong performance with good class separation
+                  capability.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/roc_curve/svm_scratch.png"
+                  alt="ROC Curve SVM (scratch)"
+                />
+                <p class="chart-analysis">
+                  Our implementation successfully replicates the scikit-learn
+                  SVM performance.
+                </p>
+              </div>
+            </div>
+            <h4>Confusion Matrix</h4>
+            <div class="visualization-group">
+              <div>
+                <h5>Scikit-learn Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/svm_sklearn.png"
+                  alt="Confusion Matrix SVM (sklearn)"
+                />
+                <p class="chart-analysis">
+                  Balanced performance with good true positive and true negative
+                  rates.
+                </p>
+              </div>
+              <div>
+                <h5>Scratch Implementation</h5>
+                <img
+                  src="static/dataset/results/confusion_matrix/svm_scratch.png"
+                  alt="Confusion Matrix SVM (scratch)"
+                />
+                <p class="chart-analysis">
+                  Similar confusion matrix patterns indicate successful
+                  implementation of the SVM algorithm.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-report">
+            <h3 id="model-comparison">Model Comparison</h3>
+            <p>Overall Performance Comparison:</p>
+            <ul>
+              <li>
+                <strong>Best Overall Performance:</strong> Random Forest
+                (Accuracy: 88%, F1-Score: 0.88)
+              </li>
+              <li>
+                <strong>Most Balanced:</strong> SVM (Consistent across all
+                metrics)
+              </li>
+              <li>
+                <strong>Best Interpretability:</strong> Logistic Regression
+              </li>
+              <li>
+                <strong>Most Efficient:</strong> KNN (Fastest training time)
+              </li>
+            </ul>
+            <p>Key Findings:</p>
+            <ul>
+              <li>
+                All models achieved accuracy above 80%, indicating strong
+                predictive performance
+              </li>
+              <li>
+                Custom implementations closely matched scikit-learn versions
+              </li>
+              <li>
+                Random Forest showed superior performance in handling complex
+                feature interactions
+              </li>
+              <li>
+                Logistic Regression provides a good balance of performance and
+                interpretability
+              </li>
+            </ul>
+          </div>
+        </section>
+      </section>
+      <aside class="content-summary">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#model-training">Model Training</a></li>
+          <li>
+            <a href="#results-evaluation">Results & Evaluation</a>
+            <ul>
+              <li><a href="#logistic-regression">Logistic Regression</a></li>
+              <li><a href="#knn">K-Nearest Neighbors (KNN)</a></li>
+              <li><a href="#random-forest">Random Forest</a></li>
+              <li><a href="#svm">Support Vector Machine (SVM)</a></li>
+              <li><a href="#model-comparison">Model Comparison</a></li>
+            </ul>
+          </li>
+        </ul>
+      </aside>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>
