@@ -113,8 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
+        console.log(data);
+
         try {
-            const response = await fetch('http://localhost:3031/predict', {
+            const response = await fetch('http://localhost:8000/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -131,11 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle the prediction result
             alert(`Prediction Result: ${result.prediction}`);
 
-            // Reset form and go back to first step
-            form.reset();
-            steps.forEach((step, index) => {
-                step.classList.toggle('active', index === 0);
-            });
+            // // Reset form and go back to first step
+            // form.reset();
+            // steps.forEach((step, index) => {
+            //     step.classList.toggle('active', index === 0);
+            // });
 
         } catch (error) {
             console.error('Error:', error);
