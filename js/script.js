@@ -113,8 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
-        console.log(data);
-
         try {
             const response = await fetch('http://localhost:8000/predict', {
                 method: 'POST',
@@ -130,14 +128,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
 
-            // Handle the prediction result
-            alert(`Prediction Result: ${result.prediction}`);
+            // Show modal with result
+            const modal = document.getElementById('result-modal');
+            const modalMessage = modal.querySelector('.modal-message');
+            const positiveIcon = modal.querySelector('.positive-icon');
+            const negativeIcon = modal.querySelector('.negative-icon');
 
-            // // Reset form and go back to first step
-            // form.reset();
-            // steps.forEach((step, index) => {
-            //     step.classList.toggle('active', index === 0);
-            // });
+            console.log(result);
+            // Set message and icon based on prediction
+            if (result.prediction) {
+                modalMessage.textContent = "Based on the provided information, there is a risk of depression.";
+                positiveIcon.style.display = 'none';
+                negativeIcon.style.display = 'block';
+            } else {
+                modalMessage.textContent = "Based on the provided information, there is no significant risk of depression.";
+                positiveIcon.style.display = 'block';
+                negativeIcon.style.display = 'none';
+            }
+
+            // Show modal
+            modal.classList.add('active');
+
+            // Handle modal close
+            const closeButton = modal.querySelector('.modal-close');
+            closeButton.onclick = () => {
+                modal.classList.remove('active');
+            };
+
+            // Close modal when clicking outside
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            };
 
         } catch (error) {
             console.error('Error:', error);
