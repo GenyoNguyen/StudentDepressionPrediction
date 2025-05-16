@@ -100,6 +100,35 @@
         font-size: 1.2rem;
         text-align: center;
       }
+      .model-comparison-table {
+        margin: 2rem 0;
+        overflow-x: auto;
+      }
+      
+      .model-comparison-table table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+      }
+      
+      .model-comparison-table th {
+        background-color: var(--accent-color);
+        padding: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .model-comparison-table td {
+        padding: 0.8rem;
+        border: 1px solid rgba(128, 128, 128, 0.2);
+      }
+      
+      .model-comparison-table tr:nth-child(even) {
+        background-color: rgba(128, 128, 128, 0.05);
+      }
+      
+      .model-comparison-table tr:hover {
+        background-color: rgba(128, 128, 128, 0.1);
+      }
     </style>
   </head>
   <body>
@@ -135,37 +164,40 @@
           <h2 id="model-training">Model Training</h2>
           <div class="model-report">
             <h3>Selected Models</h3>
-            <ul>
+            <ul class="model-list">
               <li>
-                <strong>Logistic Regression:</strong> Mô hình tuyến tính cơ bản,
-                dễ giải thích, phù hợp với bài toán phân loại nhị phân.
+                <strong>Logistic Regression:</strong> A fundamental and interpretable linear model, well-suited for binary classification tasks and offering strong baseline performance.
               </li>
               <li>
-                <strong>K-Nearest Neighbors (KNN):</strong> Đơn giản, không giả
-                định phân phối dữ liệu, hiệu quả với dữ liệu nhỏ và vừa.
+                <strong>K-Nearest Neighbors (KNN):</strong> A simple yet effective non-parametric model that makes no assumptions about data distribution, ideal for smaller to medium datasets.
               </li>
               <li>
-                <strong>Random Forest:</strong> Mô hình ensemble mạnh, giảm
-                overfitting, cho phép đánh giá tầm quan trọng của đặc trưng.
+                <strong>Random Forest:</strong> A powerful ensemble method that reduces overfitting and captures feature importance, providing robust predictions on complex datasets.
               </li>
               <li>
-                <strong>Support Vector Machine (SVM):</strong> Hiệu quả với dữ
-                liệu phân lớp rõ ràng, có thể mở rộng với kernel trick.
+                <strong>Support Vector Machine (SVM):</strong> Highly effective in handling well-separated classes, with flexibility to manage non-linear patterns through kernel functions.
               </li>
             </ul>
-            <h4>Lý do chọn:</h4>
-            <ul>
+            
+            <h4>Reasons for Selection</h4>
+            <ul class="reasons-list">
               <li>
-                Đa dạng hóa mô hình để so sánh hiệu quả trên nhiều khía cạnh.
+                To ensure a diverse set of models for performance comparison across different algorithmic approaches.
               </li>
               <li>
-                Kết hợp cả mô hình đơn giản (Logistic Regression, KNN) và phức
-                tạp (Random Forest, SVM).
+                To include both <strong>simple models</strong> (Logistic Regression, KNN) and <strong>complex models</strong> (Random Forest, SVM) for a balanced evaluation.
               </li>
               <li>
-                Phù hợp với dữ liệu có nhiều biến phân loại và số lượng mẫu lớn.
+                To match the characteristics of the dataset, which contains multiple features and a large number of samples, requiring both interpretability and scalability.
               </li>
             </ul>
+            
+            <style>
+              .model-list li, .reasons-list li {
+                margin-bottom: 1rem;
+                line-height: 1.6;
+              }
+            </style>
           </div>
         </section>
 
@@ -194,12 +226,12 @@ weighted avg       0.85      0.85      0.85      5569
                 <pre class="classification-report">
               precision    recall  f1-score   support
 
-           0       0.82      0.81      0.81      2268
-           1       0.86      0.87      0.87      3301
+           0       0.83      0.80      0.82      2268
+           1       0.87      0.88      0.88      3301
 
-    accuracy                           0.84      5569
-   macro avg       0.84      0.84      0.84      5569
-weighted avg       0.84      0.84      0.84      5569
+    accuracy                           0.85      5569
+   macro avg       0.85      0.84      0.85      5569
+weighted avg       0.85      0.85      0.85      5569
                 </pre>
               </div>
             </div>
@@ -212,9 +244,7 @@ weighted avg       0.84      0.84      0.84      5569
                   alt="ROC Curve Logistic Regression (sklearn)"
                 />
                 <p class="chart-analysis">
-                  The ROC curve shows the model's ability to discriminate
-                  between classes at various thresholds, with an AUC score
-                  indicating strong predictive performance.
+                  The ROC curve shows excellent model performance with an AUC of 0.92, indicating strong classification ability.
                 </p>
               </div>
               <div>
@@ -224,9 +254,7 @@ weighted avg       0.84      0.84      0.84      5569
                   alt="ROC Curve Logistic Regression (scratch)"
                 />
                 <p class="chart-analysis">
-                  Our custom implementation achieves comparable performance to
-                  the scikit-learn version, validating our algorithm's
-                  effectiveness.
+                  The custom implementation achieves the same AUC of 0.92, proving its correctness and effectiveness.
                 </p>
               </div>
             </div>
@@ -239,8 +267,7 @@ weighted avg       0.84      0.84      0.84      5569
                   alt="Confusion Matrix Logistic Regression (sklearn)"
                 />
                 <p class="chart-analysis">
-                  The confusion matrix reveals balanced performance in
-                  predicting both depressed and non-depressed cases.
+                  The model accurately predicts most cases, with 2916 true positives and 1819 true negatives.
                 </p>
               </div>
               <div>
@@ -250,8 +277,7 @@ weighted avg       0.84      0.84      0.84      5569
                   alt="Confusion Matrix Logistic Regression (scratch)"
                 />
                 <p class="chart-analysis">
-                  Similar distribution of predictions between our implementation
-                  and scikit-learn's, showing consistent performance.
+                  The results are nearly identical to the Scikit-learn version, with only minor differences in prediction counts. This further supports that the scratch implementation is functionally equivalent and reliable.
                 </p>
               </div>
             </div>
@@ -265,11 +291,11 @@ weighted avg       0.84      0.84      0.84      5569
                 <pre class="classification-report">
               precision    recall  f1-score   support
 
-           0       0.81      0.79      0.80      2268
-           1       0.83      0.85      0.84      3301
+           0       0.81      0.74      0.77      2268
+           1       0.83      0.88      0.86      3301
 
     accuracy                           0.82      5569
-   macro avg       0.82      0.82      0.82      5569
+   macro avg       0.82      0.81      0.82      5569
 weighted avg       0.82      0.82      0.82      5569
                 </pre>
               </div>
@@ -278,12 +304,12 @@ weighted avg       0.82      0.82      0.82      5569
                 <pre class="classification-report">
               precision    recall  f1-score   support
 
-           0       0.80      0.78      0.79      2268
-           1       0.82      0.84      0.83      3301
+           0       0.83      0.71      0.77      2268
+           1       0.82      0.90      0.86      3301
 
-    accuracy                           0.81      5569
-   macro avg       0.81      0.81      0.81      5569
-weighted avg       0.81      0.81      0.81      5569
+    accuracy                           0.82      5569
+   macro avg       0.82      0.81      0.81      5569
+weighted avg       0.82      0.82      0.82      5569
                 </pre>
               </div>
             </div>
@@ -296,8 +322,7 @@ weighted avg       0.81      0.81      0.81      5569
                   alt="ROC Curve KNN (sklearn)"
                 />
                 <p class="chart-analysis">
-                  KNN shows good discrimination ability with a smooth ROC curve,
-                  though slightly lower AUC than Logistic Regression.
+                  The KNN model with Scikit-learn performs well, achieving an AUC of 0.89 with a strongly curved ROC.
                 </p>
               </div>
               <div>
@@ -307,8 +332,7 @@ weighted avg       0.81      0.81      0.81      5569
                   alt="ROC Curve KNN (scratch)"
                 />
                 <p class="chart-analysis">
-                  Our implementation closely matches the scikit-learn version,
-                  demonstrating successful replication of the algorithm.
+                  The scratch version replicates the same AUC of 0.89, indicating it was correctly and efficiently implemented.
                 </p>
               </div>
             </div>
@@ -321,8 +345,7 @@ weighted avg       0.81      0.81      0.81      5569
                   alt="Confusion Matrix KNN (sklearn)"
                 />
                 <p class="chart-analysis">
-                  KNN shows balanced performance between false positives and
-                  false negatives.
+                  The model predicts 2911 true positives and 1679 true negatives, but has slightly more false positives.
                 </p>
               </div>
               <div>
@@ -332,8 +355,7 @@ weighted avg       0.81      0.81      0.81      5569
                   alt="Confusion Matrix KNN (scratch)"
                 />
                 <p class="chart-analysis">
-                  Similar prediction patterns between implementations indicate
-                  robust algorithm design.
+                  This version has 2970 true positives and fewer false negatives, showing slightly better recall performance.
                 </p>
               </div>
             </div>
@@ -347,12 +369,12 @@ weighted avg       0.81      0.81      0.81      5569
                 <pre class="classification-report">
               precision    recall  f1-score   support
 
-           0       0.88      0.87      0.87      2268
-           1       0.89      0.90      0.89      3301
+           0       0.82      0.79      0.81      2268
+           1       0.86      0.88      0.87      3301
 
-    accuracy                           0.88      5569
-   macro avg       0.88      0.88      0.88      5569
-weighted avg       0.88      0.88      0.88      5569
+    accuracy                           0.84      5569
+   macro avg       0.84      0.84      0.84      5569
+weighted avg       0.84      0.84      0.84      5569
                 </pre>
               </div>
               <div>
@@ -360,12 +382,12 @@ weighted avg       0.88      0.88      0.88      5569
                 <pre class="classification-report">
               precision    recall  f1-score   support
 
-           0       0.87      0.86      0.87      2268
-           1       0.89      0.90      0.89      3301
+           0       0.81      0.78      0.80      2268
+           1       0.85      0.87      0.86      3301
 
-    accuracy                           0.87      5569
-   macro avg       0.88      0.88      0.88      5569
-weighted avg       0.87      0.87      0.87      5569
+    accuracy                           0.84      5569
+   macro avg       0.83      0.83      0.83      5569
+weighted avg       0.84      0.84      0.84      5569
                 </pre>
               </div>
             </div>
@@ -378,8 +400,7 @@ weighted avg       0.87      0.87      0.87      5569
                   alt="ROC Curve Random Forest (sklearn)"
                 />
                 <p class="chart-analysis">
-                  Random Forest achieves the highest AUC score, showing superior
-                  discrimination ability.
+                  The Scikit-learn Random Forest model performs excellently with an AUC of 0.92, showing strong classification capability.
                 </p>
               </div>
               <div>
@@ -389,8 +410,7 @@ weighted avg       0.87      0.87      0.87      5569
                   alt="ROC Curve Random Forest (scratch)"
                 />
                 <p class="chart-analysis">
-                  Our implementation maintains high performance comparable to
-                  scikit-learn's version.
+                  The scratch version achieves the same AUC of 0.92, confirming that the ensemble logic was implemented successfully.
                 </p>
               </div>
             </div>
@@ -403,8 +423,7 @@ weighted avg       0.87      0.87      0.87      5569
                   alt="Confusion Matrix Random Forest (sklearn)"
                 />
                 <p class="chart-analysis">
-                  Strong performance across all metrics with minimal
-                  misclassifications.
+                  The confusion matrix shows good balance between classes with slightly higher recall for positive cases (0.88) than negative cases (0.79), providing reliable predictions.
                 </p>
               </div>
               <div>
@@ -414,8 +433,7 @@ weighted avg       0.87      0.87      0.87      5569
                   alt="Confusion Matrix Random Forest (scratch)"
                 />
                 <p class="chart-analysis">
-                  Consistent performance between implementations validates our
-                  ensemble approach.
+                  Similar class balance to the scikit-learn version, with marginally lower recall for negative cases (0.78), validating our tree ensemble implementation's effectiveness.
                 </p>
               </div>
             </div>
@@ -429,12 +447,12 @@ weighted avg       0.87      0.87      0.87      5569
                 <pre class="classification-report">
               precision    recall  f1-score   support
 
-           0       0.85      0.83      0.84      2268
-           1       0.87      0.89      0.88      3301
+           0       0.83      0.80      0.81      2268
+           1       0.87      0.88      0.88      3301
 
-    accuracy                           0.86      5569
-   macro avg       0.86      0.86      0.86      5569
-weighted avg       0.86      0.86      0.86      5569
+    accuracy                           0.85      5569
+   macro avg       0.85      0.84      0.84      5569
+weighted avg       0.85      0.85      0.85      5569
                 </pre>
               </div>
               <div>
@@ -442,11 +460,11 @@ weighted avg       0.86      0.86      0.86      5569
                 <pre class="classification-report">
               precision    recall  f1-score   support
 
-           0       0.84      0.82      0.83      2268
-           1       0.87      0.88      0.88      3301
+           0       0.81      0.82      0.81      2268
+           1       0.88      0.87      0.87      3301
 
     accuracy                           0.85      5569
-   macro avg       0.85      0.85      0.85      5569
+   macro avg       0.84      0.84      0.84      5569
 weighted avg       0.85      0.85      0.85      5569
                 </pre>
               </div>
@@ -460,8 +478,7 @@ weighted avg       0.85      0.85      0.85      5569
                   alt="ROC Curve SVM (sklearn)"
                 />
                 <p class="chart-analysis">
-                  SVM shows strong performance with good class separation
-                  capability.
+                  The Scikit-learn SVM model performs strongly with an AUC of 0.92, indicating excellent discriminative power.
                 </p>
               </div>
               <div>
@@ -471,8 +488,7 @@ weighted avg       0.85      0.85      0.85      5569
                   alt="ROC Curve SVM (scratch)"
                 />
                 <p class="chart-analysis">
-                  Our implementation successfully replicates the scikit-learn
-                  SVM performance.
+                  The scratch SVM implementation achieves the same AUC of 0.92, showing successful replication of the kernel logic.
                 </p>
               </div>
             </div>
@@ -485,8 +501,7 @@ weighted avg       0.85      0.85      0.85      5569
                   alt="Confusion Matrix SVM (sklearn)"
                 />
                 <p class="chart-analysis">
-                  Balanced performance with good true positive and true negative
-                  rates.
+                  SVM balances well between classes with similar recall rates for both positive (0.88) and negative (0.80) cases, making it suitable for general classification tasks.
                 </p>
               </div>
               <div>
@@ -496,8 +511,7 @@ weighted avg       0.85      0.85      0.85      5569
                   alt="Confusion Matrix SVM (scratch)"
                 />
                 <p class="chart-analysis">
-                  Similar confusion matrix patterns indicate successful
-                  implementation of the SVM algorithm.
+                  Our implementation shows slightly better performance on negative cases (0.82 recall) with marginally lower positive recall (0.87), a promising result for a custom implementation.
                 </p>
               </div>
             </div>
@@ -505,41 +519,171 @@ weighted avg       0.85      0.85      0.85      5569
 
           <div class="model-report">
             <h3 id="model-comparison">Model Comparison</h3>
-            <p>Overall Performance Comparison:</p>
-            <ul>
+            
+            <div class="model-comparison-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>Accuracy</th>
+                    <th>AUC</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Logistic Regression (Scikit-learn)</td>
+                    <td>0.8666</td>
+                    <td>0.8834</td>
+                    <td>0.8749</td>
+                    <td>0.8502</td>
+                    <td><strong>0.92</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Logistic Regression (Scratch)</td>
+                    <td>0.8682</td>
+                    <td>0.8843</td>
+                    <td><strong>0.8762</strong></td>
+                    <td><strong>0.8519</strong></td>
+                    <td><strong>0.92</strong></td>
+                  </tr>
+                  <tr>
+                    <td>KNN (Scikit-learn)</td>
+                    <td>0.8317</td>
+                    <td>0.8819</td>
+                    <td>0.8561</td>
+                    <td>0.8242</td>
+                    <td>0.89</td>
+                  </tr>
+                  <tr>
+                    <td>KNN (Scratch)</td>
+                    <td>0.8195</td>
+                    <td><strong>0.8997</strong></td>
+                    <td>0.8578</td>
+                    <td>0.8231</td>
+                    <td>0.89</td>
+                  </tr>
+                  <tr>
+                    <td>Random Forest (Scikit-learn)</td>
+                    <td>0.8604</td>
+                    <td>0.8791</td>
+                    <td>0.8696</td>
+                    <td>0.8438</td>
+                    <td><strong>0.92</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Random Forest (Scratch)</td>
+                    <td>0.8552</td>
+                    <td>0.8697</td>
+                    <td>0.8624</td>
+                    <td>0.8355</td>
+                    <td><strong>0.92</strong></td>
+                  </tr>
+                  <tr>
+                    <td>SVM (Scikit-learn)</td>
+                    <td>0.8660</td>
+                    <td>0.8846</td>
+                    <td>0.8752</td>
+                    <td>0.8504</td>
+                    <td><strong>0.92</strong></td>
+                  </tr>
+                  <tr>
+                    <td>SVM (Scratch)</td>
+                    <td><strong>0.8751</strong></td>
+                    <td>0.8679</td>
+                    <td>0.8715</td>
+                    <td>0.8483</td>
+                    <td><strong>0.92</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <style>
+              .model-comparison-table {
+                margin: 2rem 0;
+                overflow-x: auto;
+              }
+              
+              .model-comparison-table table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: center;
+              }
+              
+              .model-comparison-table th {
+                background-color: rgba(82, 82, 82, 0.226);
+                padding: 0.8rem;
+                border: 1px solid rgba(128, 128, 128, 0.2);
+              }
+              
+              .model-comparison-table td {
+                padding: 0.8rem;
+                border: 1px solid rgba(128, 128, 128, 0.2);
+              }
+              
+              .model-comparison-table tr:nth-child(even) {
+                background-color: rgba(128, 128, 128, 0.05);
+              }
+              
+              .model-comparison-table tr:hover {
+                background-color: rgba(128, 128, 128, 0.1);
+              }
+            </style>
+            
+            <p class="comparison-summary">From the comparison table, all models demonstrate strong classification performance, but notable differences appear when evaluating across Precision, Recall, F1-score, Accuracy, and AUC:</p>
+            <ul class="model-analysis">
               <li>
-                <strong>Best Overall Performance:</strong> Random Forest
-                (Accuracy: 88%, F1-Score: 0.88)
+                <strong>Logistic Regression (Scratch)</strong> slightly outperforms its Scikit-learn counterpart in all four metrics (F1-score: <strong>0.8762</strong>, Accuracy: <strong>0.8519</strong>), making it the top-performing model overall.
               </li>
               <li>
-                <strong>Most Balanced:</strong> SVM (Consistent across all
-                metrics)
+                <strong>Support Vector Machine (Scikit-learn)</strong> also performs exceptionally well, achieving the highest Accuracy (<strong>0.8504</strong>) among Scikit-learn models, and a strong F1-score of 0.8752.
               </li>
               <li>
-                <strong>Best Interpretability:</strong> Logistic Regression
+                <strong>KNN (Scratch)</strong> yields the <strong>highest Recall (0.8997)</strong> among all models, which is beneficial when identifying as many positive (depressed) cases as possible, though its precision and accuracy are slightly lower.
               </li>
               <li>
-                <strong>Most Efficient:</strong> KNN (Fastest training time)
+                <strong>Random Forest (Scikit-learn)</strong> offers a balanced trade-off across all metrics (F1-score: 0.8696, Accuracy: 0.8438) and maintains a strong AUC of 0.92, confirming robust performance.
+              </li>
+              <li>
+                <strong>SVM (Scratch)</strong> achieves the <strong>highest Precision (0.8751)</strong>, making it excellent for applications where false positives are particularly costly.
+              </li>
+              <li>
+                All models except KNN achieve an AUC of <strong>0.92</strong>, showing consistent discriminative power, while <strong>KNN models</strong> have slightly lower AUC (0.89), indicating modestly weaker boundary definition.
               </li>
             </ul>
-            <p>Key Findings:</p>
-            <ul>
-              <li>
-                All models achieved accuracy above 80%, indicating strong
-                predictive performance
-              </li>
-              <li>
-                Custom implementations closely matched scikit-learn versions
-              </li>
-              <li>
-                Random Forest showed superior performance in handling complex
-                feature interactions
-              </li>
-              <li>
-                Logistic Regression provides a good balance of performance and
-                interpretability
-              </li>
-            </ul>
+            
+            <p class="comparison-conclusion">In conclusion, <strong>Logistic Regression (Scratch)</strong> and <strong>SVM (Scikit-learn)</strong> emerge as the most reliable models in this context, with strong generalization and high classification metrics, while <strong>KNN (Scratch)</strong> stands out for maximum sensitivity.</p>
+            
+            <style>
+              .comparison-summary {
+                margin-top: 1.5rem;
+                font-size: 1.05rem;
+                line-height: 1.6;
+              }
+              
+              .model-analysis {
+                margin: 1.5rem 0;
+                padding-left: 1.2rem;
+              }
+              
+              .model-analysis li {
+                margin-bottom: 1rem;
+                line-height: 1.6;
+              }
+              
+              .comparison-conclusion {
+                margin-top: 1.5rem;
+                font-size: 1.05rem;
+                font-weight: 500;
+                line-height: 1.6;
+                padding: 1rem;
+                border-left: 4px solid var(--accent-color);
+                background: rgba(128, 128, 128, 0.05);
+              }
+            </style>
           </div>
         </section>
       </section>

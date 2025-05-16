@@ -62,22 +62,24 @@ header.scrolled {
 }
 
 .header-container {
-  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 0 0.25rem;
-  min-height: 60px;
+  min-height: 65px;
+  position: relative;
 }
 
 .logo {
   flex: 0 0 auto;
   margin-right: 1.5rem;
+  position: absolute;
+  left: 1rem;
 }
 
 .logo a {
@@ -143,6 +145,8 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s ease;
+  position: absolute;
+  right: 1rem;
 }
 
 #theme-toggle:hover {
@@ -254,7 +258,7 @@ main.analyze {
 
 .content-summary {
   position: sticky;
-  top: 6rem;
+  top: 7.5rem;
   height: fit-content;
   padding: 1.5rem;
   background-color: var(--header-bg);
