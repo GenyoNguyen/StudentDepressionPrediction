@@ -33,14 +33,19 @@
 
   <body>
     <header>
-      <div>
-        <ul>
-          <li><a href=".">Home</a></li>
-          <li><a href="predict">Predict</a></li>
-          <li><a href="analyze" class="active">Analyze</a></li>
-          <li><a href="train_results">Models & Results</a></li>
-          <li><a href="about">About</a></li>
-        </ul>
+      <div class="header-container">
+        <div class="logo">
+          <a href="index.html">🎓 <span>StudentDepression</span></a>
+        </div>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="predict.html">Predict</a></li>
+            <li><a href="analyze.html">Analyze</a></li>
+            <li><a href="train_results.html">Models & Results</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
         <button id="theme-toggle" aria-label="Toggle theme">
           <img src="static/assets/sun.svg" class="sun-icon" alt="Light mode" />
           <img src="static/assets/moon.svg" class="moon-icon" alt="Dark mode" />
@@ -50,14 +55,24 @@
 
     <main class="analyze">
       <section>
-        <h1>Dataset Analysis</h1>
-        <p class="subtitle">Understanding the Student Depression Dataset</p>
+        <h1>Student Depression Dataset: Exploration & Preprocessing</h1>
+        <p class="subtitle">
+          Comprehensive overview, EDA visualizations, and preprocessing steps to
+          prepare the data for modeling
+        </p>
 
         <div class="dataset-overview">
           <h2 id="overview">About Dataset</h2>
           <p>
             Student Depression Dataset: Analyzing Mental Health Trends and
             Predictors Among Students
+            <a
+              href="https://www.kaggle.com/datasets/adilshamim8/student-depression-dataset"
+              target="_blank"
+              rel="noopener"
+              style="margin-left: 12px; display: inline; font-size: 0.98em"
+              >[View on Kaggle]</a
+            >
           </p>
 
           <div class="overview-content">
@@ -423,20 +438,137 @@
         </div>
 
         <div class="data-visualization">
-          <h2 id="data-visualization">Data Visualization</h2>
+          <h2 id="EDA">EDA</h2>
           <div class="visualization-container">
+            <div class="chart full-width">
+              <h3>Data Preprocessing Before EDA</h3>
+              <div style="font-size: 1em; color: var(--text-color)">
+                <ul style="margin-left: 1.2em; font-size: 1em">
+                  <li>
+                    <strong>Data type conversion:</strong> Categorical columns
+                    such as Gender, City, Profession, Dietary Habits, Degree,
+                    etc. were converted to <code>category</code> type to
+                    optimize memory and processing.
+                  </li>
+                  <li>
+                    <strong>Value normalization:</strong> The Sleep Duration
+                    column was mapped from text values to numbers (e.g., 'Less
+                    than 5 hours' → 1, '5-6 hours' → 2, ...).
+                  </li>
+                  <li>
+                    <strong>Missing value check:</strong> The dataset contains
+                    <strong>no missing values</strong>, so no imputation or row
+                    removal was needed.
+                  </li>
+                  <li>
+                    <strong>Duplicate row check:</strong>
+                    <strong>No duplicate rows</strong> were found in the
+                    dataset.
+                  </li>
+                </ul>
+              </div>
+            </div>
             <div class="chart full-width">
               <h3>Boxplot of Numerical Features</h3>
               <img
                 src="static/dataset/plot_data/boxplot_numfeatures.png"
                 alt="Boxplot of Numerical Features"
               />
-              <p class="chart-analysis">
-                This boxplot visualization shows the distribution and
-                statistical properties of numerical features in our dataset,
-                helping identify outliers and understand the spread of values
-                across different variables.
+              <ul style="margin-top: 1em; font-size: 0.97em">
+                <li>
+                  <strong>id:</strong> 0 outliers (n &lt; -71129.50 or n &gt;
+                  211986.50)
+                </li>
+                <li>
+                  <strong>Age:</strong> 12 outliers (n &lt; 7.50 or n &gt;
+                  43.50)
+                </li>
+                <li>
+                  <strong>Academic Pressure:</strong> 0 outliers (n &lt; -1.00
+                  or n &gt; 7.00)
+                </li>
+                <li>
+                  <strong>Work Pressure:</strong> 3 outliers (n &lt; 0.00 or n
+                  &gt; 0.00)
+                </li>
+                <li>
+                  <strong>CGPA:</strong> 9 outliers (n &lt; 2.35 or n &gt;
+                  12.87)
+                </li>
+                <li>
+                  <strong>Study Satisfaction:</strong> 0 outliers (n &lt; -1.00
+                  or n &gt; 7.00)
+                </li>
+                <li>
+                  <strong>Job Satisfaction:</strong> 8 outliers (n &lt; 0.00 or
+                  n &gt; 0.00)
+                </li>
+                <li>
+                  <strong>Work/Study Hours:</strong> 0 outliers (n &lt; -5.00 or
+                  n &gt; 19.00)
+                </li>
+                <li>
+                  <strong>Depression:</strong> 0 outliers (n &lt; -1.50 or n
+                  &gt; 2.50)
+                </li>
+              </ul>
+              <p style="margin: 0 0 3px 0; font-size: 0.97em">
+                <strong
+                  >Total of 32 outliers detected across 9 numeric
+                  columns.</strong
+                >
               </p>
+              <p class="chart-analysis">
+                The boxplot visualizes the distribution and outliers of
+                numerical features in the dataset. Outliers are present in
+                features such as <strong>Age</strong>, <strong>CGPA</strong>,
+                <strong>Work Pressure</strong>, and
+                <strong>Job Satisfaction</strong>, indicating the existence of
+                abnormal values. We remove rows containing these outlier values
+                to improve data quality for modeling.
+              </p>
+            </div>
+            <div class="chart full-width">
+              <h3>Handling Noisy Values in Categorical Features</h3>
+              <div style="font-size: 1em; color: var(--text-color)">
+                <ul style="margin-left: 1.2em; font-size: 1em">
+                  <li>
+                    <strong>Detection of noisy values:</strong> Some categorical
+                    features such as <strong>Sleep Duration</strong>,
+                    <strong>Dietary Habits</strong>, and
+                    <strong>Financial Stress</strong> contained invalid or rare
+                    values (Sleep Duration = 5, Dietary Habits = 'Others',
+                    Financial Stress = '?').
+                  </li>
+                  <li>
+                    <strong>Action taken:</strong> Rows containing these values
+                    were removed from the dataset to ensure the quality of
+                    analysis and modeling.
+                  </li>
+                  <li>
+                    <strong>Details:</strong>
+                    <ul>
+                      <li>
+                        <strong>Sleep Duration:</strong> Removed rows with value
+                        = 5 (very rare, only 18 rows).
+                      </li>
+                      <li>
+                        <strong>Dietary Habits:</strong> Removed rows with value
+                        = 'Others' (only 12 rows).
+                      </li>
+                      <li>
+                        <strong>Financial Stress:</strong> Removed rows with
+                        value = '?' (only 3 rows).
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <p class="chart-analysis">
+                  Removing these noisy values increases the reliability of
+                  subsequent analyses and ensures that the input data for
+                  prediction models is valid.
+                </p>
+              </div>
             </div>
             <div class="chart">
               <h3>Distribution of Depression among Students</h3>
@@ -445,9 +577,15 @@
                 alt="Distribution of Depression among Students"
               />
               <p class="chart-analysis">
-                The distribution shows the overall prevalence of depression
-                among students. This helps us understand the general mental
-                health landscape in the student population.
+                – After removing noisy and outlier rows, the dataset contains
+                <strong>27,845 samples</strong>.<br />
+                The distribution of the target variable is as follows:<br />
+                &emsp;<strong>Class 1 (Depressed):</strong> 16,311 samples
+                (<strong>58.6%</strong>)<br />
+                &emsp;<strong>Class 0 (Not Depressed):</strong> 11,534 samples
+                (<strong>41.4%</strong>)<br />
+                – This indicates a moderate class imbalance, with a higher
+                proportion of students experiencing depression.
               </p>
             </div>
             <div class="chart">
@@ -457,9 +595,19 @@
                 alt="Depression Distribution by Gender"
               />
               <p class="chart-analysis">
-                This visualization reveals any gender-based patterns in
-                depression rates, helping identify if certain genders face
-                higher mental health challenges.
+                – The chart shows that in both genders, the number of students
+                experiencing depression is higher than those without depression.
+                Specifically:<br />
+                &emsp;<strong>Female:</strong> About 5,100 students are not
+                depressed, while approximately 7,200 are depressed.<br />
+                &emsp;<strong>Male:</strong> About 6,400 students are not
+                depressed, while approximately 9,200 are depressed.<br />
+                – Both male and female students have higher rates of depression
+                than non-depression (male ~59.5%, female ~58%), with the
+                absolute number of depressed males exceeding that of females.
+                This indicates that depression is a widespread issue across both
+                genders, with psychological strain even more pronounced among
+                male students by sheer numbers.
               </p>
             </div>
             <div class="chart">
@@ -469,9 +617,15 @@
                 alt="Depression Distribution by Sleep Duration"
               />
               <p class="chart-analysis">
-                The relationship between sleep duration and depression
-                highlights the crucial connection between sleep quality and
-                mental health in students.
+                Overall, students with shorter sleep durations (Level 1: less
+                than 5 hours and Level 2: 5–6 hours) have a noticeably higher
+                rate of depression compared to those without depression. In
+                contrast, the group with sufficient sleep (Level 4: more than 8
+                hours) shows the most balanced numbers between depressed and
+                non-depressed cases. This highlights the strong association
+                between insufficient sleep and increased risk of depression
+                among students, while adequate sleep appears to be linked to
+                better mental health outcomes.
               </p>
             </div>
             <div class="chart">
@@ -481,9 +635,16 @@
                 alt="Depression Distribution by Degree"
               />
               <p class="chart-analysis">
-                This chart shows how depression rates vary across different
-                academic programs, indicating which fields of study might be
-                associated with higher stress levels.
+                – In the <strong>Class 12</strong> group, the number of students
+                experiencing depression (about 4,300) is roughly 2.5 times
+                higher than those without depression (about 1,800).
+                <br />
+                – For undergraduate and graduate programs (such as B.Com, B.Sc,
+                B.Tech, BBA, MBA, etc.), the proportion of depressed students is
+                consistently higher than non-depressed students, although the
+                size of each group is smaller compared to Class 12. This
+                suggests that depression is prevalent across all degree levels,
+                but is especially pronounced among students in Class 12.
               </p>
             </div>
             <div class="chart">
@@ -493,9 +654,15 @@
                 alt="Depression Distribution by Dietary Habits"
               />
               <p class="chart-analysis">
-                The correlation between dietary habits and depression
-                demonstrates the impact of nutrition on mental health among
-                students.
+                – Students with <strong>Unhealthy</strong> dietary habits have a
+                very high rate of depression, with more than twice as many
+                depressed cases as non-depressed.<br />
+                – In the <strong>Moderate</strong> group, the number of
+                depressed students is also higher than those without
+                depression.<br />
+                – Only in the <strong>Healthy</strong> group is the proportion
+                of non-depressed students slightly higher than those with
+                depression.
               </p>
             </div>
             <div class="chart">
@@ -505,9 +672,15 @@
                 alt="Depression Distribution by Profession"
               />
               <p class="chart-analysis">
-                This visualization shows how different professional roles affect
-                depression rates, particularly for students who are also
-                working.
+                The depression distribution by profession chart clearly shows
+                that nearly the entire dataset consists of
+                <strong>Student</strong>
+                samples—about 11,600 not depressed and 16,300 depressed—while
+                all other professions (Civil Engineer, Teacher, Doctor, etc.)
+                together account for only about 31 records. Since the dataset is
+                overwhelmingly focused on students, the Profession feature is
+                not particularly informative and will be dropped during model
+                training.
               </p>
             </div>
             <div class="chart">
@@ -519,9 +692,20 @@
                 alt="Depression Distribution by Family History of Mental Illness"
               />
               <p class="chart-analysis">
-                The relationship between family history and depression rates
-                helps understand the genetic and environmental factors in mental
-                health.
+                – Among students with
+                <strong>no family history of mental illness</strong>, about
+                6,200 are not depressed and 8,000 are depressed (depression rate
+                ~56%).<br />
+                – In the group <strong>with a family history</strong>, the
+                number of depressed students (about 8,200) is also higher than
+                those not depressed (about 5,200), with the depression rate
+                reaching ~61%.<br />
+                – This indicates that having a family history of mental illness
+                is closely associated with a higher risk of depression among
+                students—the group with a family history records a higher
+                depression rate than those without. Therefore, this variable is
+                very important and should be retained when building predictive
+                models.
               </p>
             </div>
             <div class="chart">
@@ -531,9 +715,17 @@
                 alt="Depression Distribution by Suicidal Thoughts"
               />
               <p class="chart-analysis">
-                This critical visualization shows the correlation between
-                depression and suicidal thoughts, highlighting the importance of
-                mental health intervention.
+                – In the group that
+                <strong>never had suicidal thoughts</strong>, the majority of
+                students (nearly 7,800) are not depressed, with only about 2,300
+                experiencing depression.<br />
+                – In contrast, among those who
+                <strong>have had suicidal thoughts</strong>, more than 13,000
+                students are depressed, while only about 3,600 are not
+                depressed.<br />
+                – This makes a history of suicidal thoughts a very strong
+                indicator of depression status and highlights its importance as
+                a feature to retain when building predictive models.
               </p>
             </div>
             <div class="chart full-width">
@@ -543,9 +735,23 @@
                 alt="Distribution of Numerical Features"
               />
               <p class="chart-analysis">
-                The distribution of numerical features provides insights into
-                the range and patterns of various quantitative factors affecting
-                student mental health.
+                <ul>
+                  <li>
+                    <strong>Age (Tuổi):</strong> Phổ tuổi sinh viên trải dài từ khoảng 18 đến 35, tập trung cao nhất vào nhóm 22–30 tuổi.
+                  </li>
+                  <li>
+                    <strong>Academic Pressure & Study Satisfaction:</strong> Cả hai biến này đều được tự đánh giá trên thang 1–5 và phân bố tương đối đều, với đỉnh nhẹ ở mức 3–4.
+                  </li>
+                  <li>
+                    <strong>CGPA:</strong> Điểm trung bình tích lũy dao động trong khoảng 5.0–10.0, với số lượng lớn sinh viên đạt CGPA quanh 7–9.
+                  </li>
+                  <li>
+                    <strong>Work/Study Hours:</strong> Giờ học/việc mỗi ngày phân bố từ 0–12 giờ, với đỉnh mạnh nhất tại 10–12 giờ/ngày, cho thấy nhiều bạn dành khá nhiều thời gian cho học và làm thêm.
+                  </li>
+                  <li>
+                    <strong>Work Pressure & Job Satisfaction:</strong> Cả hai biến này chỉ có giá trị duy nhất (gần như đều = 0) trên toàn bộ mẫu, tức không chứa thông tin phân biệt. Do đó nên loại bỏ (drop) hai biến này trước khi huấn luyện mô hình vì chúng không đóng góp gì về mặt dự báo.
+                  </li>
+                </ul>
               </p>
             </div>
             <div class="chart">
@@ -555,15 +761,20 @@
                 alt="Feature Correlation Heatmap"
               />
               <p class="chart-analysis">
-                The heatmap reveals the relationships between different
-                features, helping identify which factors are most strongly
-                associated with depression.
+                The heatmap above visualizes the correlation matrix among the five continuous variables in the dataset: <strong>Age</strong>, <strong>Academic Pressure</strong>, <strong>CGPA</strong>, <strong>Study Satisfaction</strong>, and <strong>Work/Study Hours</strong>.<br><br>
+                <strong>1. No strong correlations:</strong> All off-diagonal correlation values are very small in magnitude (|r| &lt; 0.12), meaning each variable carries relatively independent information.<br><br>
+                <strong>2. Some mild trends:</strong><br>
+                – <strong>Academic Pressure &amp; Work/Study Hours</strong> (r ≈ +0.10): Students who rate their academic pressure higher tend to spend slightly more hours studying/working, though the relationship is weak.<br>
+                – <strong>Academic Pressure &amp; Study Satisfaction</strong> (r ≈ –0.11): Higher academic pressure is weakly associated with lower study satisfaction.<br>
+                – Other pairs (e.g., Age &amp; CGPA, Age &amp; Study Satisfaction, CGPA &amp; Work/Study Hours) have near-zero correlations (|r| &lt; 0.05), indicating almost no linear relationship.<br><br>
+                <strong>3. Practical implication:</strong> Since these variables are nearly independent, they can be included together in regression or classification models with little concern for multicollinearity. If any pair had a very high correlation (|r| &gt; 0.8), it would be advisable to drop one to avoid redundancy, but that's not necessary here.<br><br>
+                In summary, this heatmap shows that the five academic and study time variables in the dataset operate quite independently, providing a solid foundation for including them together in machine learning models without risk of information overlap or conflict.
               </p>
             </div>
           </div>
         </div>
         <div
-          class="data-preprocessing"
+          class="preparation-summary"
           style="
             background-color: rgba(128, 128, 128, 0.05);
             border-radius: 12px;
@@ -572,41 +783,31 @@
             margin-top: 2rem;
           "
         >
-          <h2 id="data-preprocessing">Data Preprocessing</h2>
+          <h2 id="preparation-summary">Preparation Summary</h2>
           <ul>
             <li>
-              <strong>Chuyển đổi kiểu dữ liệu:</strong> Các cột phân loại như
-              Gender, City, Profession, Dietary Habits, Degree, ... được chuyển
-              sang kiểu <code>category</code> để tối ưu bộ nhớ và xử lý.
+              <strong>Data type conversion:</strong> Categorical columns such as Gender, City, Profession, Dietary Habits, Degree, etc. were converted to <code>category</code> type to optimize memory and processing.
             </li>
             <li>
-              <strong>Chuẩn hóa giá trị:</strong> Cột Sleep Duration được ánh xạ
-              từ giá trị text sang số (ví dụ: 'Less than 5 hours' → 1, '5-6
-              hours' → 2, ...).
+              <strong>Value normalization:</strong> The Sleep Duration column was mapped from text values to numbers (e.g., 'Less than 5 hours' → 1, '5-6 hours' → 2, ...).
             </li>
             <li>
-              <strong>Kiểm tra và xử lý missing values:</strong> Bộ dữ liệu
-              không có giá trị thiếu nên không cần bổ sung hoặc loại bỏ dòng.
+              <strong>Missing value check:</strong> The dataset contains <strong>no missing values</strong>, so no imputation or row removal was needed.
             </li>
             <li>
-              <strong>Kiểm tra và loại bỏ dòng trùng lặp:</strong> Không có dòng
-              dữ liệu trùng lặp.
+              <strong>Duplicate row check:</strong> <strong>No duplicate rows</strong> were found in the dataset.
             </li>
             <li>
-              <strong>Xử lý outlier:</strong> Các dòng có giá trị ngoại lai được
-              loại bỏ để tăng độ chính xác mô hình.
+              <strong>Outlier handling:</strong> Rows with outlier values were removed to improve model accuracy.
             </li>
             <li>
-              <strong>Loại bỏ cột không cần thiết:</strong> Loại bỏ các cột như
-              id, Profession, City,... không phục vụ cho việc dự đoán.
+              <strong>Dropping unnecessary columns:</strong> Columns such as id, Profession, City, etc. that are not useful for prediction were removed.
             </li>
             <li>
-              <strong>Encoding biến phân loại:</strong> Sử dụng One-hot encoding
-              cho các biến phân loại để đưa về dạng số.
+              <strong>Encoding categorical variables:</strong> One-hot encoding was used to convert categorical variables into numeric format.
             </li>
             <li>
-              <strong>Chuẩn hóa dữ liệu:</strong> Sử dụng StandardScaler để
-              chuẩn hóa các đặc trưng đầu vào về cùng phân phối chuẩn.
+              <strong>Feature scaling:</strong> StandardScaler was used to normalize input features to a standard normal distribution.
             </li>
           </ul>
         </div>
@@ -615,21 +816,23 @@
       <aside class="content-summary">
         <h4>On this page</h4>
         <ul>
-          <li><a href="#overview">About Dataset</a></li>
           <li>
-            <a href="#data-description">Data Description</a>
+            <a href="#overview">About Dataset</a>
             <ul>
-              <li><a href="#format">Format</a></li>
-              <li><a href="#features">Features</a></li>
-              <li><a href="#target-variable">Target Variable</a></li>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#data-description">Data Description</a></li>
+              <li><a href="#key-highlights">Key Highlights</a></li>
+              <li>
+                <a href="#usage-applications">Usage & Potential Applications</a>
+              </li>
+              <li><a href="#ethical-note">Ethical Note</a></li>
+              <li><a href="#dataset-samples">Dataset Samples</a></li>
             </ul>
           </li>
-          <li><a href="#key-highlights">Key Highlights</a></li>
-          <li><a href="#usage-applications">Usage & Applications</a></li>
-          <li><a href="#ethical-note">Ethical Note</a></li>
-          <li><a href="#dataset-samples">Dataset Samples</a></li>
-          <li><a href="#data-visualization">Data Visualization</a></li>
-          <li><a href="#data-preprocessing">Data Preprocessing</a></li>
+          <li>
+            <a href="#EDA">EDA</a>
+          </li>
+          <li><a href="#preparation-summary">Preparation Summary</a></li>
         </ul>
       </aside>
     </main>
