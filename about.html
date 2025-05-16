@@ -11,22 +11,21 @@
     <link rel="stylesheet" href="css/styles.css" />
     <style>
       #about {
-        background: linear-gradient(135deg, rgba(230, 240, 255, 0.8) 0%, rgba(240, 230, 255, 0.8) 100%);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        border-radius: 15px;
-        padding: 3rem;
-        max-width: 900px;
         margin: 2rem auto;
+        background: linear-gradient(135deg, #e6f0ffb3 0%, #f0e6ffb3 100%);
+        border-radius: 18px;
+        box-shadow: 0 2px 16px 0 var(--header-shadow);
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 700px;
+        height: 860px;
       }
-      
-      [data-theme="dark"] #about {
-        background: linear-gradient(135deg, rgba(30, 40, 60, 0.8) 0%, rgba(40, 30, 60, 0.8) 100%);
-        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-      }
-      
+
       .project-info {
         text-align: center;
-        max-width: 700px;
+        max-width: 800px;
         margin: 0 auto;
       }
       
@@ -34,67 +33,61 @@
         color: var(--text-color);
         font-weight: bold;
         margin-bottom: 0.5rem;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
       }
       
       .faculty-name {
         color: var(--text-color);
         font-weight: bold;
-        margin-bottom: 2.5rem;
-        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
       }
       
       .logo-container {
-        margin: 2rem auto 2.5rem;
-        max-width: 150px;
+        margin: 2rem 0;
       }
       
       .logo-container img {
-        width: 100%;
+        max-width: 200px;
         height: auto;
       }
       
       .project-title {
         font-weight: bold;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         margin-top: 2rem;
-        color: var(--text-color);
       }
       
       .project-name {
         font-weight: bold;
-        font-size: 1.7rem;
-        margin: 0.8rem 0 2.5rem;
-        color: var(--text-color);
+        font-size: 1.8rem;
+        margin: 1rem 0 2rem;
       }
       
       .course-info, .lecturer-info {
         display: flex;
         justify-content: center;
         gap: 0.5rem;
-        margin-bottom: 0.8rem;
-        color: var(--text-color);
+        margin-bottom: 0.5rem;
       }
       
       .team-members {
-        margin-top: 2.5rem;
-        margin-bottom: 1rem;
-        color: var(--text-color);
+        margin-top: 2rem;
+        margin-bottom: 2rem;
       }
       
       .member-list {
         list-style-type: none;
         padding: 0;
-        margin: 1.5rem auto 0;
-        width: 350px;
+        text-align: left;
+        display: inline-block;
       }
       
       .member-list li {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 0.8rem;
-        color: var(--text-color);
-        text-align: left;
+        gap: 2rem;
+        margin-bottom: 0.5rem;
       }
       
       .member-id {
