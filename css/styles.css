@@ -46,14 +46,13 @@ body {
 
 /* Header and Navigation */
 header {
-    background: var(--header-bg);
-    box-shadow: 0 2px 16px 0 var(--header-shadow);
-    border-radius: 0 0 18px 18px;
-    margin-bottom: 1.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    transition: box-shadow 0.2s;
+  background: var(--header-bg);
+  box-shadow: 0 2px 16px 0 var(--header-shadow);
+  margin-bottom: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: box-shadow 0.2s;
 }
 
 header.scrolled {
@@ -173,20 +172,20 @@ header.scrolled {
 
 /* Main Content */
 main {
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+  width: 100%;
+  margin: 0 auto;
+  /* padding: 2rem 1rem; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 /* Add beautiful gradient background to main content, similar to header/nav */
@@ -194,12 +193,11 @@ main,
 section,
 .main-content,
 .content-section {
-    background: linear-gradient(90deg, #4f8cff11 30%, #a259ff11 100%);
-    border-radius: 18px;
-    box-shadow: 0 2px 16px 0 var(--header-shadow);
-    padding: 2rem 1.5rem;
-    margin-bottom: 2rem;
-    transition: background 0.3s;
+  background: linear-gradient(90deg, #4f8cff11 30%, #a259ff11 100%);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 var(--header-shadow);
+  margin-bottom: 2rem;
+  transition: background 0.3s;
 }
 
 /* Ensure all section boxes inside main are spaced evenly from all sides */
@@ -374,8 +372,7 @@ section strong {
 
 #predict {
     width: 100%;
-    max-width: 70%;
-    margin: 0 auto;
+    max-width: 45%;
 }
 
 #predict h1 {
@@ -394,7 +391,6 @@ p {
 }
 
 #prediction-form {
-    width: 100%;
     background: linear-gradient(90deg, #4f8cff22 30%, #a259ff22 100%);
     border-radius: 12px;
     box-shadow: 0 2px 16px 0 var(--header-shadow);

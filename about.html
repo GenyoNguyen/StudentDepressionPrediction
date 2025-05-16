@@ -3,18 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="About page" />
-    <meta name="keywords" content="about, information" />
-    <meta name="author" content="Your Name" />
-    <title>About - My Website</title>
+    <meta name="description" content="About page for Student Depression Prediction Project" />
+    <meta name="keywords" content="about, student depression, machine learning, UIT" />
+    <meta name="author" content="UIT Team" />
+    <title>About - Student Depression Prediction</title>
+    <link rel="icon" href="static/assets/logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      #about {
+        margin: 2rem auto;
+        background: linear-gradient(135deg, #e6f0ffb3 0%, #f0e6ffb3 100%);
+        border-radius: 18px;
+        box-shadow: 0 2px 16px 0 var(--header-shadow);
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 700px;
+        height: 860px;
+      }
+
+      .project-info {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      
+      .university-name {
+        color: var(--text-color);
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        font-size: 1.4rem;
+      }
+      
+      .faculty-name {
+        color: var(--text-color);
+        font-weight: bold;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+      }
+      
+      .logo-container {
+        margin: 2rem 0;
+      }
+      
+      .logo-container img {
+        max-width: 200px;
+        height: auto;
+      }
+      
+      .project-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-top: 2rem;
+      }
+      
+      .project-name {
+        font-weight: bold;
+        font-size: 1.8rem;
+        margin: 1rem 0 2rem;
+      }
+      
+      .course-info, .lecturer-info {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .team-members {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+      
+      .member-list {
+        list-style-type: none;
+        padding: 0;
+        text-align: left;
+        display: inline-block;
+      }
+      
+      .member-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .member-id {
+        font-weight: normal;
+      }
+    </style>
   </head>
 
   <body>
     <header>
       <div class="header-container">
         <div class="logo">
-          <a href="index.html">🎓 <span>StudentDepression</span></a>
+          <a href="index.html"><img src="static/assets/logo.svg" alt="Logo" width="32" height="32"> <span>StudentDepression</span></a>
         </div>
         <nav class="nav-menu">
           <ul>
@@ -22,7 +108,7 @@
             <li><a href="predict.html">Predict</a></li>
             <li><a href="analyze.html">Analyze</a></li>
             <li><a href="train_results.html">Models & Results</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="about.html" class="active">About</a></li>
           </ul>
         </nav>
         <button id="theme-toggle" aria-label="Toggle theme">
@@ -34,11 +120,50 @@
 
     <main>
       <section id="about">
-        <h1>About Us</h1>
-        <p>
-          This is the about page of your website. Here you can share information
-          about yourself or your organization.
-        </p>
+        <div class="project-info">
+          <p class="university-name">VIETNAM NATIONAL UNIVERSITY, HO CHI MINH CITY</p>
+          <p class="university-name">UNIVERSITY OF INFORMATION TECHNOLOGY</p>
+          <p class="faculty-name">FACULTY OF COMPUTER SCIENCE</p>
+          
+          <div class="logo-container">
+            <img src="static/assets/Logo_UIT_updated.svg.png" alt="UIT Logo">
+          </div>
+          
+          <p class="project-title">FINAL PROJECT:</p>
+          <p class="project-name">STUDENT DEPRESSION PREDICTION</p>
+          
+          <div class="course-info">
+            <p><strong>Course:</strong></p>
+            <p>CS114 – Machine Learning</p>
+          </div>
+          
+          <div class="lecturer-info">
+            <p><strong>Lecturer:</strong></p>
+            <p>PhD. Vo Nguyen Le Duy</p>
+          </div>
+          
+          <div class="team-members">
+            <p><strong>Project Members:</strong></p>
+            <ul class="member-list">
+              <li>
+                <span>1. Nguyen Dinh Khoi</span>
+                <span class="member-id">23520774</span>
+              </li>
+              <li>
+                <span>2. Le Bao Long</span>
+                <span class="member-id">23520877</span>
+              </li>
+              <li>
+                <span>3. Vo Hoang Minh</span>
+                <span class="member-id">23520961</span>
+              </li>
+              <li>
+                <span>4. Nguyen Phong Huy</span>
+                <span class="member-id">23520637</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
     </main>
 
