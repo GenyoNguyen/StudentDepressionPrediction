@@ -3,18 +3,143 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Your website description" />
-    <meta name="keywords" content="your, keywords, here" />
-    <meta name="author" content="Your Name" />
-    <title>My Website</title>
+    <meta name="description" content="Student Depression Prediction Tool" />
+    <meta
+      name="keywords"
+      content="depression, mental health, students, prediction, machine learning"
+    />
+    <meta name="author" content="UIT Team" />
+    <title>Home - Student Depression Prediction</title>
+    <link rel="icon" href="static/assets/logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      #home {
+        margin: 2rem auto 0 auto;
+        background: linear-gradient(135deg, #e6f0ffb3 0%, #f0e6ffb3 100%);
+        border-radius: 18px;
+        box-shadow: 0 2px 16px 0 var(--header-shadow);
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 700px;
+        width: 1400px;
+      }
+      [data-theme="dark"] #home {
+        background: linear-gradient(135deg, #1e283cb3 0%, #281e3cb3 100%);
+      }
+      .hero-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        gap: 3.5rem;
+        background: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        margin: 0 auto;
+      }
+      .hero-content {
+        flex: 2;
+        max-width: 900px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .hero-content h1 {
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        line-height: 1.2;
+        color: var(--text-color);
+        text-align: left;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .hero-content p {
+        margin-bottom: 1.5rem;
+        font-size: 1.13rem;
+        line-height: 1.7;
+        color: var(--text-color);
+        text-align: justify;
+      }
+      .cta-buttons {
+        display: flex;
+        gap: 1.2rem;
+        justify-content: flex-start;
+      }
+      .predict-button {
+        font-size: 1.1rem;
+        padding: 0.8rem 1.7rem;
+        border-radius: 10px;
+        font-weight: 700;
+        box-shadow: 0 4px 16px rgba(80, 80, 160, 0.1);
+        border: none;
+      }
+      .hero-image {
+        flex: 1;
+        /* max-width: 340px; */
+        min-width: 240px;
+        width: 100%;
+        margin: 0;
+        align-self: center;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(80, 80, 160, 0.18);
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: #fff;
+        object-fit: cover;
+      }
+      .hero-image:hover {
+        transform: scale(1.04) rotate(-2deg);
+        box-shadow: 0 12px 36px rgba(80, 80, 160, 0.22);
+      }
+      @media (max-width: 1024px) {
+        .hero-section {
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+        }
+        .hero-content {
+          padding: 1.5rem 0 0 0;
+          max-width: 98vw;
+        }
+        .hero-image {
+          margin-top: 1.5rem;
+          max-width: 260px;
+        }
+      }
+      @media (max-width: 768px) {
+        #home {
+          padding: 1rem 0.5rem;
+        }
+        .hero-section {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .hero-content h1 {
+          font-size: 1.5rem;
+        }
+        .hero-image {
+          max-width: 180px;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <header>
       <div class="header-container">
         <div class="logo">
-          <a href="index.html">🎓 <span>StudentDepression</span></a>
+          <a href="index.html"
+            ><img
+              src="static/assets/logo.svg"
+              alt="Logo"
+              width="32"
+              height="32"
+            />
+            <span>StudentDepression</span></a
+          >
         </div>
         <nav class="nav-menu">
           <ul>
@@ -34,8 +159,61 @@
 
     <main>
       <section id="home">
-        <h1>CS114 - Student Depression Prediction</h1>
-        <a href="predict.html" class="predict-button">Predict now</a>
+        <div
+          class="hero-section"
+          style="
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2.5rem;
+          "
+        >
+          <div class="hero-content">
+            <h1>Student Depression</h1>
+            <p>
+              In recent years, the prevalence of depression among
+              university‐aged students has risen to alarming levels, driven by
+              intense academic competition, financial stressors, and shifting
+              social dynamics. Left unaddressed, student depression can impair
+              cognitive function, reduce academic performance, and increase the
+              risk of long‐term mental health complications. Early
+              identification and intervention are therefore critical—not only to
+              support individual well‐being, but also to foster healthier
+              learning environments and reduce institutional dropout rates.
+            </p>
+            <p>
+              To explore the multifactorial determinants of student depression
+              and build predictive models capable of flagging at‐risk
+              individuals, we employ the "Student Depression Dataset" sourced
+              from Kaggle. This dataset comprises 27,901 survey responses and 18
+              features collected from university students around the world. Key
+              attributes include demographic information (age, gender, city),
+              academic metrics (CGPA, study hours, academic pressure), lifestyle
+              factors (sleep duration, dietary habits, work/study hours),
+              psychosocial variables (job satisfaction, financial stress, family
+              history of mental illness), and ultimately a binary
+              Depression_Status label indicating whether the respondent
+              self-reported depressive symptoms.
+            </p>
+            <div class="cta-buttons" style="justify-content: flex-start">
+              <a href="predict.html" class="predict-button"
+                >Try our prediction tool</a
+              >
+              <a href="analyze.html" class="predict-button">Learn more</a>
+            </div>
+          </div>
+          <img
+            src="static/assets/depression_img.jpg"
+            alt="Depression Illustration"
+            class="hero-image"
+            style="
+              max-width: 400px;
+              width: 100%;
+              margin: 0;
+              align-self: flex-start;
+            "
+          />
+        </div>
       </section>
     </main>
 
