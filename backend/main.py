@@ -48,10 +48,10 @@ class PredictionRequest(BaseModel):
     degree: str
     dietary_habits: str
     family_history: str
-    financial_stress: int
+    financial_stress: float
     gender: str
     model: str
-    sleep_duration: int
+    sleep_duration: str
     study_satisfaction: int
     suicidal_thoughts: str
     work_study_hours: int
