@@ -1087,7 +1087,7 @@ footer {
 }
 
 .modal-content {
-    background: linear-gradient(90deg, #4f8cff22 30%, #a259ff22 100%);
+    background: linear-gradient(90deg, #4f8cff33 30%, #a259ff33 100%);
     padding: 3rem;
     border-radius: 18px;
     text-align: center;
@@ -1099,7 +1099,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgba(128, 128, 255, 0.08);
+    border: 1px solid rgba(128, 128, 255, 0.15);
 }
 
 .modal-icon {
@@ -1127,7 +1127,7 @@ footer {
     margin-bottom: 2.5rem;
     line-height: 1.6;
     max-width: 90%;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .modal-close {
@@ -1212,4 +1212,14 @@ header div a.active::after {
     height: 3px;
     background-color: var(--text-color);
     border-radius: 2px;
+}
+
+[data-theme="light"] .modal-content {
+    background: linear-gradient(90deg, #4f8cff22 30%, #a259ff22 100%);
+    border: 1px solid rgba(128, 128, 255, 0.2);
+}
+
+[data-theme="light"] .modal-message {
+    color: #18181b;
+    font-weight: 600;
 }
