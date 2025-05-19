@@ -1220,6 +1220,6 @@ header div a.active::after {
 }
 
 [data-theme="light"] .modal-message {
-    color: #18181b;
+    color: white;
     font-weight: 600;
 }
