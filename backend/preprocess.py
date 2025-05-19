@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 
 class Preprocess:
     def __init__(self):
-        self.__data = pd.read_csv("../dataset/student_depression_dataset_encoded.csv")
+        self.__data = pd.read_csv("dataset/student_depression_dataset_encoded.csv")
         self.__data = self.__data.drop(columns=["id", "Depression"])
         self.__data = self.__data.reindex(sorted(self.__data.columns), axis=1)
         self.__cat_features = ['Gender', 'Sleep Duration', 'Dietary Habits', 'Degree',

@@ -1,23 +1,24 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", () => {
     // Fix: Only enable smooth scroll for in-page anchors (href starts with #)
-    document.querySelectorAll("nav a").forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-            const href = this.getAttribute("href");
-            if (href && href.startsWith("#")) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                    });
-                }
-            }
-            // If not an in-page anchor, let browser handle navigation (no custom effect)
-        });
-    });
+    // document.querySelectorAll("nav a").forEach((anchor) => {
+    //     anchor.addEventListener("click", function (e) {
+    //         const href = this.getAttribute("href");
+    //         console.log(href);
+    //         if (href && href.startsWith("#")) {
+    //             e.preventDefault();
+    //             const targetId = href.substring(1);
+    //             const targetElement = document.getElementById(targetId);
+    //             if (targetElement) {
+    //                 targetElement.scrollIntoView({
+    //                     behavior: "smooth",
+    //                     block: "start",
+    //                 });
+    //             }
+    //         }
+    //         // If not an in-page anchor, let browser handle navigation (no custom effect)
+    //     });
+    // });
 
     // Add active class to current navigation item
     const sections = document.querySelectorAll("section");
@@ -35,12 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        navLinks.forEach((link) => {
-            link.classList.remove("active");
-            if (link.getAttribute("href").substring(1) === current) {
-                link.classList.add("active");
-            }
-        });
+        // navLinks.forEach((link) => {
+        //     link.classList.remove("active");
+        //     if (link.getAttribute("href").substring(1) === current) {
+        //         link.classList.add("active");
+        //     }
+        // });
     });
 
     const header = document.querySelector("header");
@@ -213,4 +214,28 @@ window.addEventListener("scroll", () => {
     }
 
     lastScroll = currentScroll;
+});
+
+// Sidebar Navigation
+const menuToggle = document.querySelector('.menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+const overlay = document.querySelector('.overlay');
+
+function toggleSidebar() {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+}
+
+menuToggle.addEventListener('click', toggleSidebar);
+overlay.addEventListener('click', toggleSidebar);
+
+// Close sidebar when clicking a link
+const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (sidebar.classList.contains('active')) {
+            toggleSidebar();
+        }
+    });
 });

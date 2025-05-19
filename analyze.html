@@ -1,843 +1,942 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Analysis of Student Depression Dataset" />
-    <meta
-      name="keywords"
-      content="analyze, depression, student, mental health, dataset"
-    />
-    <meta name="author" content="Your Name" />
-    <title>Analyze - Student Depression Prediction</title>
-    <link rel="icon" href="static/assets/logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/styles.css" />
-    <style>
-      .chart-analysis {
-        margin-top: 15px;
-        padding: 10px;
-        font-size: 0.95em;
-        line-height: 1.5;
-        color: var(--text-color);
-      }
-      .chart.full-width {
-        grid-column: 1 / -1;
-        width: 100%;
-      }
-      .chart.full-width img {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-      }
-    </style>
-  </head>
 
-  <body>
-    <header>
-      <div class="header-container">
-        <div class="logo">
-          <a href="index.html"><img src="static/assets/logo.svg" alt="Logo" width="32" height="32"> <span>StudentDepression</span></a>
-        </div>
-        <nav class="nav-menu">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="predict.html">Predict</a></li>
-            <li><a href="analyze.html">Analyze</a></li>
-            <li><a href="train_results.html">Models & Results</a></li>
-            <li><a href="about.html">About</a></li>
-          </ul>
-        </nav>
-        <button id="theme-toggle" aria-label="Toggle theme">
-          <img src="static/assets/sun.svg" class="sun-icon" alt="Light mode" />
-          <img src="static/assets/moon.svg" class="moon-icon" alt="Dark mode" />
-        </button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Analysis of Student Depression Dataset" />
+  <meta name="keywords" content="analyze, depression, student, mental health, dataset" />
+  <meta name="author" content="Your Name" />
+  <title>Analyze - Student Depression Prediction</title>
+  <link rel="icon" href="static/assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .chart-analysis {
+      margin-top: 15px;
+      padding: 10px;
+      font-size: 0.95em;
+      line-height: 1.5;
+      color: var(--text-color);
+    }
+
+    .chart.full-width {
+      grid-column: 1 / -1;
+      width: 100%;
+    }
+
+    .chart.full-width img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: var(--header-bg);
+      box-shadow: 2px 0 8px var(--header-shadow);
+      transition: left 0.3s ease;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar-nav {
+      margin-top: 4rem;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar-nav ul li {
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-nav ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+      display: block;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .sidebar-nav ul li a:hover,
+    .sidebar-nav ul li a.active {
+      background: linear-gradient(90deg, #4f8cff22 30%, #a259ff22 100%);
+      color: #4f8cff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1001;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    @media (max-width: 1024px) {
+      .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      #theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  <div class="overlay"></div>
+  <div class="sidebar">
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="predict.html">Predict</a></li>
+        <li><a href="analyze.html" class="active">Analyze</a></li>
+        <li><a href="train_results.html">Models & Results</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html"><img src="static/assets/logo.svg" alt="Logo" width="32" height="32">
+          <span>StudentDepression</span></a>
       </div>
-    </header>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="predict.html">Predict</a></li>
+          <li><a href="analyze.html" class="active">Analyze</a></li>
+          <li><a href="train_results.html">Models & Results</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <img src="static/assets/sun.svg" class="sun-icon" alt="Light mode" />
+        <img src="static/assets/moon.svg" class="moon-icon" alt="Dark mode" />
+      </button>
+    </div>
+  </header>
 
-    <main class="analyze">
-      <section>
-        <h1>Student Depression Dataset: Exploration & Preprocessing</h1>
-        <p class="subtitle">
-          Comprehensive overview, EDA visualizations, and preprocessing steps to
-          prepare the data for modeling
+  <main class="analyze">
+    <section>
+      <h1>Student Depression Dataset: Exploration & Preprocessing</h1>
+      <p class="subtitle">
+        Comprehensive overview, EDA visualizations, and preprocessing steps to
+        prepare the data for modeling
+      </p>
+
+      <div class="dataset-overview">
+        <h2 id="overview">About Dataset</h2>
+        <p>
+          Student Depression Dataset: Analyzing Mental Health Trends and
+          Predictors Among Students
+          <a href="https://www.kaggle.com/datasets/adilshamim8/student-depression-dataset" target="_blank"
+            rel="noopener" style="margin-left: 12px; display: inline; font-size: 0.98em">[View on Kaggle]</a>
         </p>
 
-        <div class="dataset-overview">
-          <h2 id="overview">About Dataset</h2>
+        <div class="overview-content">
+          <h3>Overview</h3>
           <p>
-            Student Depression Dataset: Analyzing Mental Health Trends and
-            Predictors Among Students
-            <a
-              href="https://www.kaggle.com/datasets/adilshamim8/student-depression-dataset"
-              target="_blank"
-              rel="noopener"
-              style="margin-left: 12px; display: inline; font-size: 0.98em"
-              >[View on Kaggle]</a
-            >
+            This dataset compiles a wide range of information aimed at
+            understanding, analyzing, and predicting depression levels among
+            students. It is designed for research in psychology, data science,
+            and education, providing insights into factors that contribute to
+            student mental health challenges and aiding in the design of early
+            intervention strategies.
           </p>
+        </div>
 
-          <div class="overview-content">
-            <h3>Overview</h3>
-            <p>
-              This dataset compiles a wide range of information aimed at
-              understanding, analyzing, and predicting depression levels among
-              students. It is designed for research in psychology, data science,
-              and education, providing insights into factors that contribute to
-              student mental health challenges and aiding in the design of early
-              intervention strategies.
-            </p>
+        <div class="data-description">
+          <h3 id="data-description">Data Description</h3>
+
+          <div class="format-section">
+            <h4 id="format">Format:</h4>
+            <p>CSV (each row represents an individual student)</p>
           </div>
 
-          <div class="data-description">
-            <h3 id="data-description">Data Description</h3>
-
-            <div class="format-section">
-              <h4 id="format">Format:</h4>
-              <p>CSV (each row represents an individual student)</p>
-            </div>
-
-            <div class="features-section">
-              <h4 id="features">Features:</h4>
-              <ul>
-                <li><strong>ID:</strong> Unique identifier for each student</li>
-                <li><strong>Demographics:</strong> Age, Gender, City</li>
-                <li>
-                  <strong>Academic Indicators:</strong> CGPA, Academic Pressure,
-                  Study Satisfaction
-                </li>
-                <li>
-                  <strong>Lifestyle & Wellbeing:</strong> Sleep Duration,
-                  Dietary Habits, Work Pressure, Job Satisfaction, Work/Study
-                  Hours
-                </li>
-                <li>
-                  <strong>Additional Factors:</strong> Profession, Degree,
-                  Financial Stress, Family History of Mental Illness, and
-                  whether the student has ever had suicidal thoughts
-                </li>
-              </ul>
-            </div>
-
-            <div class="target-section">
-              <h4 id="target-variable">Target Variable:</h4>
-              <ul>
-                <li>
-                  <strong>Depression_Status:</strong> A binary indicator (0/1 or
-                  Yes/No) that denotes whether a student is experiencing
-                  depression
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="key-highlights">
-            <h3 id="key-highlights">Key Highlights</h3>
+          <div class="features-section">
+            <h4 id="features">Features:</h4>
             <ul>
+              <li><strong>ID:</strong> Unique identifier for each student</li>
+              <li><strong>Demographics:</strong> Age, Gender, City</li>
               <li>
-                <strong>Multifaceted Data:</strong> Integrates demographic,
-                academic, and lifestyle factors to offer a comprehensive view of
-                student wellbeing.
+                <strong>Academic Indicators:</strong> CGPA, Academic Pressure,
+                Study Satisfaction
               </li>
               <li>
-                <strong>Ethical Considerations:</strong> Data collection adhered
-                to strict ethical standards with an emphasis on privacy,
-                informed consent, and anonymization.
+                <strong>Lifestyle & Wellbeing:</strong> Sleep Duration,
+                Dietary Habits, Work Pressure, Job Satisfaction, Work/Study
+                Hours
               </li>
               <li>
-                <strong>Research & Practical Applications:</strong> Ideal for
-                developing predictive models, conducting statistical analyses,
-                and informing mental health intervention strategies in
-                educational environments.
+                <strong>Additional Factors:</strong> Profession, Degree,
+                Financial Stress, Family History of Mental Illness, and
+                whether the student has ever had suicidal thoughts
               </li>
             </ul>
           </div>
 
-          <div class="usage-applications">
-            <h3 id="usage-applications">Usage & Potential Applications</h3>
+          <div class="target-section">
+            <h4 id="target-variable">Target Variable:</h4>
             <ul>
               <li>
-                <strong>Academic Research:</strong> Explore correlations between
-                academic pressures and mental health trends.
-              </li>
-              <li>
-                <strong>Data Science Projects:</strong> Build predictive models
-                to identify at-risk students based on various indicators.
-              </li>
-              <li>
-                <strong>Policy Making:</strong> Inform the development of
-                targeted mental health support programs within academic
-                institutions.
+                <strong>Depression_Status:</strong> A binary indicator (0/1 or
+                Yes/No) that denotes whether a student is experiencing
+                depression
               </li>
             </ul>
           </div>
+        </div>
 
-          <div class="ethical-note">
-            <h3 id="ethical-note">Ethical Note</h3>
-            <p>
-              Due to the sensitive nature of the data, please ensure that any
-              analysis or published results respect privacy and ethical
-              guidelines. Users of this dataset should be mindful of the ethical
-              implications when interpreting and sharing insights.
-            </p>
-          </div>
+        <div class="key-highlights">
+          <h3 id="key-highlights">Key Highlights</h3>
+          <ul>
+            <li>
+              <strong>Multifaceted Data:</strong> Integrates demographic,
+              academic, and lifestyle factors to offer a comprehensive view of
+              student wellbeing.
+            </li>
+            <li>
+              <strong>Ethical Considerations:</strong> Data collection adhered
+              to strict ethical standards with an emphasis on privacy,
+              informed consent, and anonymization.
+            </li>
+            <li>
+              <strong>Research & Practical Applications:</strong> Ideal for
+              developing predictive models, conducting statistical analyses,
+              and informing mental health intervention strategies in
+              educational environments.
+            </li>
+          </ul>
+        </div>
 
-          <div class="dataset-samples">
-            <h3 id="dataset-samples">Dataset Samples</h3>
-            <div class="samples-container">
-              <div class="sample-section">
-                <div class="table-container">
-                  <div class="table-responsive">
-                    <table class="data-table">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>id</th>
-                          <th>Gender</th>
-                          <th>Age</th>
-                          <th>City</th>
-                          <th>Profession</th>
-                          <th>Academic Pressure</th>
-                          <th>Work Pressure</th>
-                          <th>CGPA</th>
-                          <th>Study Satisfaction</th>
-                          <th>Job Satisfaction</th>
-                          <th>Sleep Duration</th>
-                          <th>Dietary Habits</th>
-                          <th>Degree</th>
-                          <th>Have you ever had suicidal thoughts?</th>
-                          <th>Work/Study Hours</th>
-                          <th>Financial Stress</th>
-                          <th>Family History of Mental Illness</th>
-                          <th>Depression</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>0</td>
-                          <td>2</td>
-                          <td>Male</td>
-                          <td>33.0</td>
-                          <td>Visakhapatnam</td>
-                          <td>Student</td>
-                          <td>5.0</td>
-                          <td>0.0</td>
-                          <td>8.97</td>
-                          <td>2.0</td>
-                          <td>0.0</td>
-                          <td>5-6 hours</td>
-                          <td>Healthy</td>
-                          <td>B.Pharm</td>
-                          <td>Yes</td>
-                          <td>3.0</td>
-                          <td>1.0</td>
-                          <td>No</td>
-                          <td>1</td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>8</td>
-                          <td>Female</td>
-                          <td>24.0</td>
-                          <td>Bangalore</td>
-                          <td>Student</td>
-                          <td>2.0</td>
-                          <td>0.0</td>
-                          <td>5.90</td>
-                          <td>5.0</td>
-                          <td>0.0</td>
-                          <td>5-6 hours</td>
-                          <td>Moderate</td>
-                          <td>BSc</td>
-                          <td>No</td>
-                          <td>3.0</td>
-                          <td>2.0</td>
-                          <td>Yes</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>26</td>
-                          <td>Male</td>
-                          <td>31.0</td>
-                          <td>Srinagar</td>
-                          <td>Student</td>
-                          <td>3.0</td>
-                          <td>0.0</td>
-                          <td>7.03</td>
-                          <td>5.0</td>
-                          <td>0.0</td>
-                          <td>Less than 5 hours</td>
-                          <td>Healthy</td>
-                          <td>BA</td>
-                          <td>No</td>
-                          <td>9.0</td>
-                          <td>1.0</td>
-                          <td>Yes</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>30</td>
-                          <td>Female</td>
-                          <td>28.0</td>
-                          <td>Varanasi</td>
-                          <td>Student</td>
-                          <td>3.0</td>
-                          <td>0.0</td>
-                          <td>5.59</td>
-                          <td>2.0</td>
-                          <td>0.0</td>
-                          <td>7-8 hours</td>
-                          <td>Moderate</td>
-                          <td>BCA</td>
-                          <td>Yes</td>
-                          <td>4.0</td>
-                          <td>5.0</td>
-                          <td>Yes</td>
-                          <td>1</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>32</td>
-                          <td>Female</td>
-                          <td>25.0</td>
-                          <td>Jaipur</td>
-                          <td>Student</td>
-                          <td>4.0</td>
-                          <td>0.0</td>
-                          <td>8.13</td>
-                          <td>3.0</td>
-                          <td>0.0</td>
-                          <td>5-6 hours</td>
-                          <td>Moderate</td>
-                          <td>M.Tech</td>
-                          <td>Yes</td>
-                          <td>1.0</td>
-                          <td>1.0</td>
-                          <td>No</td>
-                          <td>0</td>
-                        </tr>
-                        <tr class="separator">
-                          <td colspan="19"></td>
-                        </tr>
-                        <tr>
-                          <td>27686</td>
-                          <td>140685</td>
-                          <td>Female</td>
-                          <td>27.0</td>
-                          <td>Surat</td>
-                          <td>Student</td>
-                          <td>5.0</td>
-                          <td>0.0</td>
-                          <td>5.75</td>
-                          <td>5.0</td>
-                          <td>0.0</td>
-                          <td>5-6 hours</td>
-                          <td>Unhealthy</td>
-                          <td>Class 12</td>
-                          <td>Yes</td>
-                          <td>7.0</td>
-                          <td>1.0</td>
-                          <td>Yes</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>27687</td>
-                          <td>140686</td>
-                          <td>Male</td>
-                          <td>27.0</td>
-                          <td>Ludhiana</td>
-                          <td>Student</td>
-                          <td>2.0</td>
-                          <td>0.0</td>
-                          <td>9.40</td>
-                          <td>3.0</td>
-                          <td>0.0</td>
-                          <td>Less than 5 hours</td>
-                          <td>Healthy</td>
-                          <td>MSc</td>
-                          <td>No</td>
-                          <td>0.0</td>
-                          <td>3.0</td>
-                          <td>Yes</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>27688</td>
-                          <td>140689</td>
-                          <td>Male</td>
-                          <td>31.0</td>
-                          <td>Faridabad</td>
-                          <td>Student</td>
-                          <td>3.0</td>
-                          <td>0.0</td>
-                          <td>6.61</td>
-                          <td>4.0</td>
-                          <td>0.0</td>
-                          <td>5-6 hours</td>
-                          <td>Unhealthy</td>
-                          <td>M.Tech</td>
-                          <td>No</td>
-                          <td>5.0</td>
-                          <td>2.0</td>
-                          <td>No</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>27689</td>
-                          <td>140690</td>
-                          <td>Female</td>
-                          <td>18.0</td>
-                          <td>Ludhiana</td>
-                          <td>Student</td>
-                          <td>5.0</td>
-                          <td>0.0</td>
-                          <td>6.88</td>
-                          <td>2.0</td>
-                          <td>0.0</td>
-                          <td>Less than 5 hours</td>
-                          <td>Healthy</td>
-                          <td>Class 12</td>
-                          <td>Yes</td>
-                          <td>10.0</td>
-                          <td>5.0</td>
-                          <td>No</td>
-                          <td>1</td>
-                        </tr>
-                        <tr>
-                          <td>27690</td>
-                          <td>140699</td>
-                          <td>Male</td>
-                          <td>27.0</td>
-                          <td>Patna</td>
-                          <td>Student</td>
-                          <td>4.0</td>
-                          <td>0.0</td>
-                          <td>9.24</td>
-                          <td>1.0</td>
-                          <td>0.0</td>
-                          <td>Less than 5 hours</td>
-                          <td>Healthy</td>
-                          <td>BCA</td>
-                          <td>Yes</td>
-                          <td>2.0</td>
-                          <td>3.0</td>
-                          <td>Yes</td>
-                          <td>1</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+        <div class="usage-applications">
+          <h3 id="usage-applications">Usage & Potential Applications</h3>
+          <ul>
+            <li>
+              <strong>Academic Research:</strong> Explore correlations between
+              academic pressures and mental health trends.
+            </li>
+            <li>
+              <strong>Data Science Projects:</strong> Build predictive models
+              to identify at-risk students based on various indicators.
+            </li>
+            <li>
+              <strong>Policy Making:</strong> Inform the development of
+              targeted mental health support programs within academic
+              institutions.
+            </li>
+          </ul>
+        </div>
+
+        <div class="ethical-note">
+          <h3 id="ethical-note">Ethical Note</h3>
+          <p>
+            Due to the sensitive nature of the data, please ensure that any
+            analysis or published results respect privacy and ethical
+            guidelines. Users of this dataset should be mindful of the ethical
+            implications when interpreting and sharing insights.
+          </p>
+        </div>
+
+        <div class="dataset-samples">
+          <h3 id="dataset-samples">Dataset Samples</h3>
+          <div class="samples-container">
+            <div class="sample-section">
+              <div class="table-container">
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>id</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>City</th>
+                        <th>Profession</th>
+                        <th>Academic Pressure</th>
+                        <th>Work Pressure</th>
+                        <th>CGPA</th>
+                        <th>Study Satisfaction</th>
+                        <th>Job Satisfaction</th>
+                        <th>Sleep Duration</th>
+                        <th>Dietary Habits</th>
+                        <th>Degree</th>
+                        <th>Have you ever had suicidal thoughts?</th>
+                        <th>Work/Study Hours</th>
+                        <th>Financial Stress</th>
+                        <th>Family History of Mental Illness</th>
+                        <th>Depression</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>Male</td>
+                        <td>33.0</td>
+                        <td>Visakhapatnam</td>
+                        <td>Student</td>
+                        <td>5.0</td>
+                        <td>0.0</td>
+                        <td>8.97</td>
+                        <td>2.0</td>
+                        <td>0.0</td>
+                        <td>5-6 hours</td>
+                        <td>Healthy</td>
+                        <td>B.Pharm</td>
+                        <td>Yes</td>
+                        <td>3.0</td>
+                        <td>1.0</td>
+                        <td>No</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>8</td>
+                        <td>Female</td>
+                        <td>24.0</td>
+                        <td>Bangalore</td>
+                        <td>Student</td>
+                        <td>2.0</td>
+                        <td>0.0</td>
+                        <td>5.90</td>
+                        <td>5.0</td>
+                        <td>0.0</td>
+                        <td>5-6 hours</td>
+                        <td>Moderate</td>
+                        <td>BSc</td>
+                        <td>No</td>
+                        <td>3.0</td>
+                        <td>2.0</td>
+                        <td>Yes</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>26</td>
+                        <td>Male</td>
+                        <td>31.0</td>
+                        <td>Srinagar</td>
+                        <td>Student</td>
+                        <td>3.0</td>
+                        <td>0.0</td>
+                        <td>7.03</td>
+                        <td>5.0</td>
+                        <td>0.0</td>
+                        <td>Less than 5 hours</td>
+                        <td>Healthy</td>
+                        <td>BA</td>
+                        <td>No</td>
+                        <td>9.0</td>
+                        <td>1.0</td>
+                        <td>Yes</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>30</td>
+                        <td>Female</td>
+                        <td>28.0</td>
+                        <td>Varanasi</td>
+                        <td>Student</td>
+                        <td>3.0</td>
+                        <td>0.0</td>
+                        <td>5.59</td>
+                        <td>2.0</td>
+                        <td>0.0</td>
+                        <td>7-8 hours</td>
+                        <td>Moderate</td>
+                        <td>BCA</td>
+                        <td>Yes</td>
+                        <td>4.0</td>
+                        <td>5.0</td>
+                        <td>Yes</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>32</td>
+                        <td>Female</td>
+                        <td>25.0</td>
+                        <td>Jaipur</td>
+                        <td>Student</td>
+                        <td>4.0</td>
+                        <td>0.0</td>
+                        <td>8.13</td>
+                        <td>3.0</td>
+                        <td>0.0</td>
+                        <td>5-6 hours</td>
+                        <td>Moderate</td>
+                        <td>M.Tech</td>
+                        <td>Yes</td>
+                        <td>1.0</td>
+                        <td>1.0</td>
+                        <td>No</td>
+                        <td>0</td>
+                      </tr>
+                      <tr class="separator">
+                        <td colspan="19"></td>
+                      </tr>
+                      <tr>
+                        <td>27686</td>
+                        <td>140685</td>
+                        <td>Female</td>
+                        <td>27.0</td>
+                        <td>Surat</td>
+                        <td>Student</td>
+                        <td>5.0</td>
+                        <td>0.0</td>
+                        <td>5.75</td>
+                        <td>5.0</td>
+                        <td>0.0</td>
+                        <td>5-6 hours</td>
+                        <td>Unhealthy</td>
+                        <td>Class 12</td>
+                        <td>Yes</td>
+                        <td>7.0</td>
+                        <td>1.0</td>
+                        <td>Yes</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>27687</td>
+                        <td>140686</td>
+                        <td>Male</td>
+                        <td>27.0</td>
+                        <td>Ludhiana</td>
+                        <td>Student</td>
+                        <td>2.0</td>
+                        <td>0.0</td>
+                        <td>9.40</td>
+                        <td>3.0</td>
+                        <td>0.0</td>
+                        <td>Less than 5 hours</td>
+                        <td>Healthy</td>
+                        <td>MSc</td>
+                        <td>No</td>
+                        <td>0.0</td>
+                        <td>3.0</td>
+                        <td>Yes</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>27688</td>
+                        <td>140689</td>
+                        <td>Male</td>
+                        <td>31.0</td>
+                        <td>Faridabad</td>
+                        <td>Student</td>
+                        <td>3.0</td>
+                        <td>0.0</td>
+                        <td>6.61</td>
+                        <td>4.0</td>
+                        <td>0.0</td>
+                        <td>5-6 hours</td>
+                        <td>Unhealthy</td>
+                        <td>M.Tech</td>
+                        <td>No</td>
+                        <td>5.0</td>
+                        <td>2.0</td>
+                        <td>No</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>27689</td>
+                        <td>140690</td>
+                        <td>Female</td>
+                        <td>18.0</td>
+                        <td>Ludhiana</td>
+                        <td>Student</td>
+                        <td>5.0</td>
+                        <td>0.0</td>
+                        <td>6.88</td>
+                        <td>2.0</td>
+                        <td>0.0</td>
+                        <td>Less than 5 hours</td>
+                        <td>Healthy</td>
+                        <td>Class 12</td>
+                        <td>Yes</td>
+                        <td>10.0</td>
+                        <td>5.0</td>
+                        <td>No</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>27690</td>
+                        <td>140699</td>
+                        <td>Male</td>
+                        <td>27.0</td>
+                        <td>Patna</td>
+                        <td>Student</td>
+                        <td>4.0</td>
+                        <td>0.0</td>
+                        <td>9.24</td>
+                        <td>1.0</td>
+                        <td>0.0</td>
+                        <td>Less than 5 hours</td>
+                        <td>Healthy</td>
+                        <td>BCA</td>
+                        <td>Yes</td>
+                        <td>2.0</td>
+                        <td>3.0</td>
+                        <td>Yes</td>
+                        <td>1</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-            <p class="sample-note">
-              Note: Showing the first 5 and last 5 samples from the dataset
-              (total rows: 27,901).
+          </div>
+          <p class="sample-note">
+            Note: Showing the first 5 and last 5 samples from the dataset
+            (total rows: 27,901).
+          </p>
+        </div>
+      </div>
+
+      <div class="data-visualization">
+        <h2 id="EDA">EDA</h2>
+        <div class="visualization-container">
+          <div class="chart full-width">
+            <h3>Data Preprocessing Before EDA</h3>
+            <div style="font-size: 1em; color: var(--text-color)">
+              <ul style="margin-left: 1.2em; font-size: 1em">
+                <li>
+                  <strong>Data type conversion:</strong> Categorical columns
+                  such as Gender, City, Profession, Dietary Habits, Degree,
+                  etc. were converted to <code>category</code> type to
+                  optimize memory and processing.
+                </li>
+                <li>
+                  <strong>Value normalization:</strong> The Sleep Duration
+                  column was mapped from text values to numbers (e.g., 'Less
+                  than 5 hours' → 1, '5-6 hours' → 2, ...).
+                </li>
+                <li>
+                  <strong>Missing value check:</strong> The dataset contains
+                  <strong>no missing values</strong>, so no imputation or row
+                  removal was needed.
+                </li>
+                <li>
+                  <strong>Duplicate row check:</strong>
+                  <strong>No duplicate rows</strong> were found in the
+                  dataset.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="chart full-width">
+            <h3>Boxplot of Numerical Features</h3>
+            <img src="static/dataset/plot_data/boxplot_numfeatures.png" alt="Boxplot of Numerical Features" />
+            <ul style="margin-top: 1em; font-size: 0.97em">
+              <li>
+                <strong>id:</strong> 0 outliers (n &lt; -71129.50 or n &gt;
+                211986.50)
+              </li>
+              <li>
+                <strong>Age:</strong> 12 outliers (n &lt; 7.50 or n &gt;
+                43.50)
+              </li>
+              <li>
+                <strong>Academic Pressure:</strong> 0 outliers (n &lt; -1.00
+                or n &gt; 7.00)
+              </li>
+              <li>
+                <strong>Work Pressure:</strong> 3 outliers (n &lt; 0.00 or n
+                &gt; 0.00)
+              </li>
+              <li>
+                <strong>CGPA:</strong> 9 outliers (n &lt; 2.35 or n &gt;
+                12.87)
+              </li>
+              <li>
+                <strong>Study Satisfaction:</strong> 0 outliers (n &lt; -1.00
+                or n &gt; 7.00)
+              </li>
+              <li>
+                <strong>Job Satisfaction:</strong> 8 outliers (n &lt; 0.00 or
+                n &gt; 0.00)
+              </li>
+              <li>
+                <strong>Work/Study Hours:</strong> 0 outliers (n &lt; -5.00 or
+                n &gt; 19.00)
+              </li>
+              <li>
+                <strong>Depression:</strong> 0 outliers (n &lt; -1.50 or n
+                &gt; 2.50)
+              </li>
+            </ul>
+            <p style="margin: 0 0 3px 0; font-size: 0.97em">
+              <strong>Total of 32 outliers detected across 9 numeric
+                columns.</strong>
+            </p>
+            <p class="chart-analysis">
+              The boxplot visualizes the distribution and outliers of
+              numerical features in the dataset. Outliers are present in
+              features such as <strong>Age</strong>, <strong>CGPA</strong>,
+              <strong>Work Pressure</strong>, and
+              <strong>Job Satisfaction</strong>, indicating the existence of
+              abnormal values. We remove rows containing these outlier values
+              to improve data quality for modeling.
+            </p>
+          </div>
+          <div class="chart full-width">
+            <h3>Handling Noisy Values in Categorical Features</h3>
+            <div style="font-size: 1em; color: var(--text-color)">
+              <ul style="margin-left: 1.2em; font-size: 1em">
+                <li>
+                  <strong>Detection of noisy values:</strong> Some categorical
+                  features such as <strong>Sleep Duration</strong>,
+                  <strong>Dietary Habits</strong>, and
+                  <strong>Financial Stress</strong> contained invalid or rare
+                  values (Sleep Duration = 5, Dietary Habits = 'Others',
+                  Financial Stress = '?').
+                </li>
+                <li>
+                  <strong>Action taken:</strong> Rows containing these values
+                  were removed from the dataset to ensure the quality of
+                  analysis and modeling.
+                </li>
+                <li>
+                  <strong>Details:</strong>
+                  <ul>
+                    <li>
+                      <strong>Sleep Duration:</strong> Removed rows with value
+                      = 5 (very rare, only 18 rows).
+                    </li>
+                    <li>
+                      <strong>Dietary Habits:</strong> Removed rows with value
+                      = 'Others' (only 12 rows).
+                    </li>
+                    <li>
+                      <strong>Financial Stress:</strong> Removed rows with
+                      value = '?' (only 3 rows).
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p class="chart-analysis">
+                Removing these noisy values increases the reliability of
+                subsequent analyses and ensures that the input data for
+                prediction models is valid.
+              </p>
+            </div>
+          </div>
+          <div class="chart">
+            <h3>Distribution of Depression among Students</h3>
+            <img src="static/dataset/plot_data/Distribution_of_Depression_among_Students.png"
+              alt="Distribution of Depression among Students" />
+            <p class="chart-analysis">
+              – After removing noisy and outlier rows, the dataset contains
+              <strong>27,845 samples</strong>.<br />
+              The distribution of the target variable is as follows:<br />
+              &emsp;<strong>Class 1 (Depressed):</strong> 16,311 samples
+              (<strong>58.6%</strong>)<br />
+              &emsp;<strong>Class 0 (Not Depressed):</strong> 11,534 samples
+              (<strong>41.4%</strong>)<br />
+              – This indicates a moderate class imbalance, with a higher
+              proportion of students experiencing depression.
+            </p>
+          </div>
+          <div class="chart">
+            <h3>Depression Distribution by Gender</h3>
+            <img src="static/dataset/plot_data/Depresssion_Distribution_by_Gender.png"
+              alt="Depression Distribution by Gender" />
+            <p class="chart-analysis">
+              – The chart shows that in both genders, the number of students
+              experiencing depression is higher than those without depression.
+              Specifically:<br />
+              &emsp;<strong>Female:</strong> About 5,100 students are not
+              depressed, while approximately 7,200 are depressed.<br />
+              &emsp;<strong>Male:</strong> About 6,400 students are not
+              depressed, while approximately 9,200 are depressed.<br />
+              – Both male and female students have higher rates of depression
+              than non-depression (male ~59.5%, female ~58%), with the
+              absolute number of depressed males exceeding that of females.
+              This indicates that depression is a widespread issue across both
+              genders, with psychological strain even more pronounced among
+              male students by sheer numbers.
+            </p>
+          </div>
+          <div class="chart">
+            <h3>Depression Distribution by Sleep Duration</h3>
+            <img src="static/dataset/plot_data/Depression_Distribution_by_Sleep_Duration.png"
+              alt="Depression Distribution by Sleep Duration" />
+            <p class="chart-analysis">
+              Overall, students with shorter sleep durations (Level 1: less
+              than 5 hours and Level 2: 5–6 hours) have a noticeably higher
+              rate of depression compared to those without depression. In
+              contrast, the group with sufficient sleep (Level 4: more than 8
+              hours) shows the most balanced numbers between depressed and
+              non-depressed cases. This highlights the strong association
+              between insufficient sleep and increased risk of depression
+              among students, while adequate sleep appears to be linked to
+              better mental health outcomes.
+            </p>
+          </div>
+          <div class="chart">
+            <h3>Depression Distribution by Degree</h3>
+            <img src="static/dataset/plot_data/Depression_Distribution_by_Degree.png"
+              alt="Depression Distribution by Degree" />
+            <p class="chart-analysis">
+              – In the <strong>Class 12</strong> group, the number of students
+              experiencing depression (about 4,300) is roughly 2.5 times
+              higher than those without depression (about 1,800).
+              <br />
+              – For undergraduate and graduate programs (such as B.Com, B.Sc,
+              B.Tech, BBA, MBA, etc.), the proportion of depressed students is
+              consistently higher than non-depressed students, although the
+              size of each group is smaller compared to Class 12. This
+              suggests that depression is prevalent across all degree levels,
+              but is especially pronounced among students in Class 12.
+            </p>
+          </div>
+          <div class="chart">
+            <h3>Depression Distribution by Dietary Habits</h3>
+            <img src="static/dataset/plot_data/Depression_Distribution_by_Dietary_Habits.png"
+              alt="Depression Distribution by Dietary Habits" />
+            <p class="chart-analysis">
+              – Students with <strong>Unhealthy</strong> dietary habits have a
+              very high rate of depression, with more than twice as many
+              depressed cases as non-depressed.<br />
+              – In the <strong>Moderate</strong> group, the number of
+              depressed students is also higher than those without
+              depression.<br />
+              – Only in the <strong>Healthy</strong> group is the proportion
+              of non-depressed students slightly higher than those with
+              depression.
+            </p>
+          </div>
+          <div class="chart">
+            <h3>Depression Distribution by Profession</h3>
+            <img src="static/dataset/plot_data/Depression_Distribution_by_Profession.png"
+              alt="Depression Distribution by Profession" />
+            <p class="chart-analysis">
+              The depression distribution by profession chart clearly shows
+              that nearly the entire dataset consists of
+              <strong>Student</strong>
+              samples—about 11,600 not depressed and 16,300 depressed—while
+              all other professions (Civil Engineer, Teacher, Doctor, etc.)
+              together account for only about 31 records. Since the dataset is
+              overwhelmingly focused on students, the Profession feature is
+              not particularly informative and will be dropped during model
+              training.
+            </p>
+          </div>
+          <div class="chart">
+            <h3>
+              Depression Distribution by Family History of Mental Illness
+            </h3>
+            <img src="static/dataset/plot_data/Depression_Distribution_by_Family_History_of_Mental_Illness.png"
+              alt="Depression Distribution by Family History of Mental Illness" />
+            <p class="chart-analysis">
+              – Among students with
+              <strong>no family history of mental illness</strong>, about
+              6,200 are not depressed and 8,000 are depressed (depression rate
+              ~56%).<br />
+              – In the group <strong>with a family history</strong>, the
+              number of depressed students (about 8,200) is also higher than
+              those not depressed (about 5,200), with the depression rate
+              reaching ~61%.<br />
+              – This indicates that having a family history of mental illness
+              is closely associated with a higher risk of depression among
+              students—the group with a family history records a higher
+              depression rate than those without. Therefore, this variable is
+              very important and should be retained when building predictive
+              models.
+            </p>
+          </div>
+          <div class="chart">
+            <h3>Depression Distribution by Suicidal Thoughts</h3>
+            <img src="static/dataset/plot_data/Depression_Distribution_by_Haveyoueverhadsuicidalthoughts.png"
+              alt="Depression Distribution by Suicidal Thoughts" />
+            <p class="chart-analysis">
+              – In the group that
+              <strong>never had suicidal thoughts</strong>, the majority of
+              students (nearly 7,800) are not depressed, with only about 2,300
+              experiencing depression.<br />
+              – In contrast, among those who
+              <strong>have had suicidal thoughts</strong>, more than 13,000
+              students are depressed, while only about 3,600 are not
+              depressed.<br />
+              – This makes a history of suicidal thoughts a very strong
+              indicator of depression status and highlights its importance as
+              a feature to retain when building predictive models.
+            </p>
+          </div>
+          <div class="chart full-width">
+            <h3>Distribution of Numerical Features</h3>
+            <img src="static/dataset/plot_data/Distribution_of_Numerical_Features.png"
+              alt="Distribution of Numerical Features" />
+            <p class="chart-analysis">
+            <ul>
+              <li>
+                <strong>Age:</strong> The age range of students spans from about 18 to 35, with the highest
+                concentration in the 22–30 age group.
+              </li>
+              <li>
+                <strong>Academic Pressure & Study Satisfaction:</strong> Both variables are self-rated on a 1–5 scale
+                and are relatively evenly distributed, with a slight peak at levels 3–4.
+              </li>
+              <li>
+                <strong>CGPA:</strong> The cumulative GPA ranges from 5.0 to 10.0, with most students achieving a CGPA
+                around 7–9.
+              </li>
+              <li>
+                <strong>Work/Study Hours:</strong> Daily study/work hours range from 0 to 12 hours, with the strongest
+                peak at 10–12 hours/day, indicating many students spend a significant amount of time on study and
+                part-time work.
+              </li>
+              <li>
+                <strong>Work Pressure & Job Satisfaction:</strong> Both variables have only a single value (almost
+                always = 0) across the entire sample, meaning they do not provide any distinguishing information.
+                Therefore, these variables should be dropped before model training as they do not contribute to
+                prediction.
+              </li>
+            </ul>
+            </p>
+          </div>
+          <div class="chart">
+            <h3>Feature Correlation Heatmap</h3>
+            <img src="static/dataset/plot_data/heatmap.png" alt="Feature Correlation Heatmap" />
+            <p class="chart-analysis">
+              The heatmap above visualizes the correlation matrix among the five continuous variables in the dataset:
+              <strong>Age</strong>, <strong>Academic Pressure</strong>, <strong>CGPA</strong>, <strong>Study
+                Satisfaction</strong>, and <strong>Work/Study Hours</strong>.<br><br>
+              <strong>1. No strong correlations:</strong> All off-diagonal correlation values are very small in
+              magnitude (|r| &lt; 0.12), meaning each variable carries relatively independent information.<br><br>
+              <strong>2. Some mild trends:</strong><br>
+              – <strong>Academic Pressure &amp; Work/Study Hours</strong> (r ≈ +0.10): Students who rate their academic
+              pressure higher tend to spend slightly more hours studying/working, though the relationship is weak.<br>
+              – <strong>Academic Pressure &amp; Study Satisfaction</strong> (r ≈ –0.11): Higher academic pressure is
+              weakly associated with lower study satisfaction.<br>
+              – Other pairs (e.g., Age &amp; CGPA, Age &amp; Study Satisfaction, CGPA &amp; Work/Study Hours) have
+              near-zero correlations (|r| &lt; 0.05), indicating almost no linear relationship.<br><br>
+              <strong>3. Practical implication:</strong> Since these variables are nearly independent, they can be
+              included together in regression or classification models with little concern for multicollinearity. If any
+              pair had a very high correlation (|r| &gt; 0.8), it would be advisable to drop one to avoid redundancy,
+              but that's not necessary here.<br><br>
+              In summary, this heatmap shows that the five academic and study time variables in the dataset operate
+              quite independently, providing a solid foundation for including them together in machine learning models
+              without risk of information overlap or conflict.
             </p>
           </div>
         </div>
-
-        <div class="data-visualization">
-          <h2 id="EDA">EDA</h2>
-          <div class="visualization-container">
-            <div class="chart full-width">
-              <h3>Data Preprocessing Before EDA</h3>
-              <div style="font-size: 1em; color: var(--text-color)">
-                <ul style="margin-left: 1.2em; font-size: 1em">
-                  <li>
-                    <strong>Data type conversion:</strong> Categorical columns
-                    such as Gender, City, Profession, Dietary Habits, Degree,
-                    etc. were converted to <code>category</code> type to
-                    optimize memory and processing.
-                  </li>
-                  <li>
-                    <strong>Value normalization:</strong> The Sleep Duration
-                    column was mapped from text values to numbers (e.g., 'Less
-                    than 5 hours' → 1, '5-6 hours' → 2, ...).
-                  </li>
-                  <li>
-                    <strong>Missing value check:</strong> The dataset contains
-                    <strong>no missing values</strong>, so no imputation or row
-                    removal was needed.
-                  </li>
-                  <li>
-                    <strong>Duplicate row check:</strong>
-                    <strong>No duplicate rows</strong> were found in the
-                    dataset.
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="chart full-width">
-              <h3>Boxplot of Numerical Features</h3>
-              <img
-                src="static/dataset/plot_data/boxplot_numfeatures.png"
-                alt="Boxplot of Numerical Features"
-              />
-              <ul style="margin-top: 1em; font-size: 0.97em">
-                <li>
-                  <strong>id:</strong> 0 outliers (n &lt; -71129.50 or n &gt;
-                  211986.50)
-                </li>
-                <li>
-                  <strong>Age:</strong> 12 outliers (n &lt; 7.50 or n &gt;
-                  43.50)
-                </li>
-                <li>
-                  <strong>Academic Pressure:</strong> 0 outliers (n &lt; -1.00
-                  or n &gt; 7.00)
-                </li>
-                <li>
-                  <strong>Work Pressure:</strong> 3 outliers (n &lt; 0.00 or n
-                  &gt; 0.00)
-                </li>
-                <li>
-                  <strong>CGPA:</strong> 9 outliers (n &lt; 2.35 or n &gt;
-                  12.87)
-                </li>
-                <li>
-                  <strong>Study Satisfaction:</strong> 0 outliers (n &lt; -1.00
-                  or n &gt; 7.00)
-                </li>
-                <li>
-                  <strong>Job Satisfaction:</strong> 8 outliers (n &lt; 0.00 or
-                  n &gt; 0.00)
-                </li>
-                <li>
-                  <strong>Work/Study Hours:</strong> 0 outliers (n &lt; -5.00 or
-                  n &gt; 19.00)
-                </li>
-                <li>
-                  <strong>Depression:</strong> 0 outliers (n &lt; -1.50 or n
-                  &gt; 2.50)
-                </li>
-              </ul>
-              <p style="margin: 0 0 3px 0; font-size: 0.97em">
-                <strong
-                  >Total of 32 outliers detected across 9 numeric
-                  columns.</strong
-                >
-              </p>
-              <p class="chart-analysis">
-                The boxplot visualizes the distribution and outliers of
-                numerical features in the dataset. Outliers are present in
-                features such as <strong>Age</strong>, <strong>CGPA</strong>,
-                <strong>Work Pressure</strong>, and
-                <strong>Job Satisfaction</strong>, indicating the existence of
-                abnormal values. We remove rows containing these outlier values
-                to improve data quality for modeling.
-              </p>
-            </div>
-            <div class="chart full-width">
-              <h3>Handling Noisy Values in Categorical Features</h3>
-              <div style="font-size: 1em; color: var(--text-color)">
-                <ul style="margin-left: 1.2em; font-size: 1em">
-                  <li>
-                    <strong>Detection of noisy values:</strong> Some categorical
-                    features such as <strong>Sleep Duration</strong>,
-                    <strong>Dietary Habits</strong>, and
-                    <strong>Financial Stress</strong> contained invalid or rare
-                    values (Sleep Duration = 5, Dietary Habits = 'Others',
-                    Financial Stress = '?').
-                  </li>
-                  <li>
-                    <strong>Action taken:</strong> Rows containing these values
-                    were removed from the dataset to ensure the quality of
-                    analysis and modeling.
-                  </li>
-                  <li>
-                    <strong>Details:</strong>
-                    <ul>
-                      <li>
-                        <strong>Sleep Duration:</strong> Removed rows with value
-                        = 5 (very rare, only 18 rows).
-                      </li>
-                      <li>
-                        <strong>Dietary Habits:</strong> Removed rows with value
-                        = 'Others' (only 12 rows).
-                      </li>
-                      <li>
-                        <strong>Financial Stress:</strong> Removed rows with
-                        value = '?' (only 3 rows).
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                <p class="chart-analysis">
-                  Removing these noisy values increases the reliability of
-                  subsequent analyses and ensures that the input data for
-                  prediction models is valid.
-                </p>
-              </div>
-            </div>
-            <div class="chart">
-              <h3>Distribution of Depression among Students</h3>
-              <img
-                src="static/dataset/plot_data/Distribution_of_Depression_among_Students.png"
-                alt="Distribution of Depression among Students"
-              />
-              <p class="chart-analysis">
-                – After removing noisy and outlier rows, the dataset contains
-                <strong>27,845 samples</strong>.<br />
-                The distribution of the target variable is as follows:<br />
-                &emsp;<strong>Class 1 (Depressed):</strong> 16,311 samples
-                (<strong>58.6%</strong>)<br />
-                &emsp;<strong>Class 0 (Not Depressed):</strong> 11,534 samples
-                (<strong>41.4%</strong>)<br />
-                – This indicates a moderate class imbalance, with a higher
-                proportion of students experiencing depression.
-              </p>
-            </div>
-            <div class="chart">
-              <h3>Depression Distribution by Gender</h3>
-              <img
-                src="static/dataset/plot_data/Depresssion_Distribution_by_Gender.png"
-                alt="Depression Distribution by Gender"
-              />
-              <p class="chart-analysis">
-                – The chart shows that in both genders, the number of students
-                experiencing depression is higher than those without depression.
-                Specifically:<br />
-                &emsp;<strong>Female:</strong> About 5,100 students are not
-                depressed, while approximately 7,200 are depressed.<br />
-                &emsp;<strong>Male:</strong> About 6,400 students are not
-                depressed, while approximately 9,200 are depressed.<br />
-                – Both male and female students have higher rates of depression
-                than non-depression (male ~59.5%, female ~58%), with the
-                absolute number of depressed males exceeding that of females.
-                This indicates that depression is a widespread issue across both
-                genders, with psychological strain even more pronounced among
-                male students by sheer numbers.
-              </p>
-            </div>
-            <div class="chart">
-              <h3>Depression Distribution by Sleep Duration</h3>
-              <img
-                src="static/dataset/plot_data/Depression_Distribution_by_Sleep_Duration.png"
-                alt="Depression Distribution by Sleep Duration"
-              />
-              <p class="chart-analysis">
-                Overall, students with shorter sleep durations (Level 1: less
-                than 5 hours and Level 2: 5–6 hours) have a noticeably higher
-                rate of depression compared to those without depression. In
-                contrast, the group with sufficient sleep (Level 4: more than 8
-                hours) shows the most balanced numbers between depressed and
-                non-depressed cases. This highlights the strong association
-                between insufficient sleep and increased risk of depression
-                among students, while adequate sleep appears to be linked to
-                better mental health outcomes.
-              </p>
-            </div>
-            <div class="chart">
-              <h3>Depression Distribution by Degree</h3>
-              <img
-                src="static/dataset/plot_data/Depression_Distribution_by_Degree.png"
-                alt="Depression Distribution by Degree"
-              />
-              <p class="chart-analysis">
-                – In the <strong>Class 12</strong> group, the number of students
-                experiencing depression (about 4,300) is roughly 2.5 times
-                higher than those without depression (about 1,800).
-                <br />
-                – For undergraduate and graduate programs (such as B.Com, B.Sc,
-                B.Tech, BBA, MBA, etc.), the proportion of depressed students is
-                consistently higher than non-depressed students, although the
-                size of each group is smaller compared to Class 12. This
-                suggests that depression is prevalent across all degree levels,
-                but is especially pronounced among students in Class 12.
-              </p>
-            </div>
-            <div class="chart">
-              <h3>Depression Distribution by Dietary Habits</h3>
-              <img
-                src="static/dataset/plot_data/Depression_Distribution_by_Dietary_Habits.png"
-                alt="Depression Distribution by Dietary Habits"
-              />
-              <p class="chart-analysis">
-                – Students with <strong>Unhealthy</strong> dietary habits have a
-                very high rate of depression, with more than twice as many
-                depressed cases as non-depressed.<br />
-                – In the <strong>Moderate</strong> group, the number of
-                depressed students is also higher than those without
-                depression.<br />
-                – Only in the <strong>Healthy</strong> group is the proportion
-                of non-depressed students slightly higher than those with
-                depression.
-              </p>
-            </div>
-            <div class="chart">
-              <h3>Depression Distribution by Profession</h3>
-              <img
-                src="static/dataset/plot_data/Depression_Distribution_by_Profession.png"
-                alt="Depression Distribution by Profession"
-              />
-              <p class="chart-analysis">
-                The depression distribution by profession chart clearly shows
-                that nearly the entire dataset consists of
-                <strong>Student</strong>
-                samples—about 11,600 not depressed and 16,300 depressed—while
-                all other professions (Civil Engineer, Teacher, Doctor, etc.)
-                together account for only about 31 records. Since the dataset is
-                overwhelmingly focused on students, the Profession feature is
-                not particularly informative and will be dropped during model
-                training.
-              </p>
-            </div>
-            <div class="chart">
-              <h3>
-                Depression Distribution by Family History of Mental Illness
-              </h3>
-              <img
-                src="static/dataset/plot_data/Depression_Distribution_by_Family_History_of_Mental_Illness.png"
-                alt="Depression Distribution by Family History of Mental Illness"
-              />
-              <p class="chart-analysis">
-                – Among students with
-                <strong>no family history of mental illness</strong>, about
-                6,200 are not depressed and 8,000 are depressed (depression rate
-                ~56%).<br />
-                – In the group <strong>with a family history</strong>, the
-                number of depressed students (about 8,200) is also higher than
-                those not depressed (about 5,200), with the depression rate
-                reaching ~61%.<br />
-                – This indicates that having a family history of mental illness
-                is closely associated with a higher risk of depression among
-                students—the group with a family history records a higher
-                depression rate than those without. Therefore, this variable is
-                very important and should be retained when building predictive
-                models.
-              </p>
-            </div>
-            <div class="chart">
-              <h3>Depression Distribution by Suicidal Thoughts</h3>
-              <img
-                src="static/dataset/plot_data/Depression_Distribution_by_Haveyoueverhadsuicidalthoughts.png"
-                alt="Depression Distribution by Suicidal Thoughts"
-              />
-              <p class="chart-analysis">
-                – In the group that
-                <strong>never had suicidal thoughts</strong>, the majority of
-                students (nearly 7,800) are not depressed, with only about 2,300
-                experiencing depression.<br />
-                – In contrast, among those who
-                <strong>have had suicidal thoughts</strong>, more than 13,000
-                students are depressed, while only about 3,600 are not
-                depressed.<br />
-                – This makes a history of suicidal thoughts a very strong
-                indicator of depression status and highlights its importance as
-                a feature to retain when building predictive models.
-              </p>
-            </div>
-            <div class="chart full-width">
-              <h3>Distribution of Numerical Features</h3>
-              <img
-                src="static/dataset/plot_data/Distribution_of_Numerical_Features.png"
-                alt="Distribution of Numerical Features"
-              />
-              <p class="chart-analysis">
-                <ul>
-                  <li>
-                    <strong>Age:</strong> The age range of students spans from about 18 to 35, with the highest concentration in the 22–30 age group.
-                  </li>
-                  <li>
-                    <strong>Academic Pressure & Study Satisfaction:</strong> Both variables are self-rated on a 1–5 scale and are relatively evenly distributed, with a slight peak at levels 3–4.
-                  </li>
-                  <li>
-                    <strong>CGPA:</strong> The cumulative GPA ranges from 5.0 to 10.0, with most students achieving a CGPA around 7–9.
-                  </li>
-                  <li>
-                    <strong>Work/Study Hours:</strong> Daily study/work hours range from 0 to 12 hours, with the strongest peak at 10–12 hours/day, indicating many students spend a significant amount of time on study and part-time work.
-                  </li>
-                  <li>
-                    <strong>Work Pressure & Job Satisfaction:</strong> Both variables have only a single value (almost always = 0) across the entire sample, meaning they do not provide any distinguishing information. Therefore, these variables should be dropped before model training as they do not contribute to prediction.
-                  </li>
-                </ul>
-              </p>
-            </div>
-            <div class="chart">
-              <h3>Feature Correlation Heatmap</h3>
-              <img
-                src="static/dataset/plot_data/heatmap.png"
-                alt="Feature Correlation Heatmap"
-              />
-              <p class="chart-analysis">
-                The heatmap above visualizes the correlation matrix among the five continuous variables in the dataset: <strong>Age</strong>, <strong>Academic Pressure</strong>, <strong>CGPA</strong>, <strong>Study Satisfaction</strong>, and <strong>Work/Study Hours</strong>.<br><br>
-                <strong>1. No strong correlations:</strong> All off-diagonal correlation values are very small in magnitude (|r| &lt; 0.12), meaning each variable carries relatively independent information.<br><br>
-                <strong>2. Some mild trends:</strong><br>
-                – <strong>Academic Pressure &amp; Work/Study Hours</strong> (r ≈ +0.10): Students who rate their academic pressure higher tend to spend slightly more hours studying/working, though the relationship is weak.<br>
-                – <strong>Academic Pressure &amp; Study Satisfaction</strong> (r ≈ –0.11): Higher academic pressure is weakly associated with lower study satisfaction.<br>
-                – Other pairs (e.g., Age &amp; CGPA, Age &amp; Study Satisfaction, CGPA &amp; Work/Study Hours) have near-zero correlations (|r| &lt; 0.05), indicating almost no linear relationship.<br><br>
-                <strong>3. Practical implication:</strong> Since these variables are nearly independent, they can be included together in regression or classification models with little concern for multicollinearity. If any pair had a very high correlation (|r| &gt; 0.8), it would be advisable to drop one to avoid redundancy, but that's not necessary here.<br><br>
-                In summary, this heatmap shows that the five academic and study time variables in the dataset operate quite independently, providing a solid foundation for including them together in machine learning models without risk of information overlap or conflict.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
-          class="preparation-summary"
-          style="
+      </div>
+      <div class="preparation-summary" style="
             background-color: rgba(128, 128, 128, 0.05);
             border-radius: 12px;
             padding: 2rem;
             border: 1px solid rgba(128, 128, 128, 0.1);
             margin-top: 2rem;
-          "
-        >
-          <h2 id="preparation-summary">Preparation Summary</h2>
-          <ul>
-            <li>
-              <strong>Data type conversion:</strong> Categorical columns such as Gender, City, Profession, Dietary Habits, Degree, etc. were converted to <code>category</code> type to optimize memory and processing.
-            </li>
-            <li>
-              <strong>Value normalization:</strong> The Sleep Duration column was mapped from text values to numbers (e.g., 'Less than 5 hours' → 1, '5-6 hours' → 2, ...).
-            </li>
-            <li>
-              <strong>Missing value check:</strong> The dataset contains <strong>no missing values</strong>, so no imputation or row removal was needed.
-            </li>
-            <li>
-              <strong>Duplicate row check:</strong> <strong>No duplicate rows</strong> were found in the dataset.
-            </li>
-            <li>
-              <strong>Outlier handling:</strong> Rows with outlier values were removed to improve model accuracy.
-            </li>
-            <li>
-              <strong>Dropping unnecessary columns:</strong> Columns such as id, Profession, City, etc. that are not useful for prediction were removed.
-            </li>
-            <li>
-              <strong>Encoding categorical variables:</strong> One-hot encoding was used to convert categorical variables into numeric format.
-            </li>
-            <li>
-              <strong>Feature scaling:</strong> StandardScaler was used to normalize input features to a standard normal distribution.
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <aside class="content-summary">
-        <h4>On this page</h4>
+          ">
+        <h2 id="preparation-summary">Preparation Summary</h2>
         <ul>
           <li>
-            <a href="#overview">About Dataset</a>
-            <ul>
-              <li><a href="#overview">Overview</a></li>
-              <li><a href="#data-description">Data Description</a></li>
-              <li><a href="#key-highlights">Key Highlights</a></li>
-              <li>
-                <a href="#usage-applications">Usage & Potential Applications</a>
-              </li>
-              <li><a href="#ethical-note">Ethical Note</a></li>
-              <li><a href="#dataset-samples">Dataset Samples</a></li>
-            </ul>
+            <strong>Data type conversion:</strong> Categorical columns such as Gender, City, Profession, Dietary Habits,
+            Degree, etc. were converted to <code>category</code> type to optimize memory and processing.
           </li>
           <li>
-            <a href="#EDA">EDA</a>
+            <strong>Value normalization:</strong> The Sleep Duration column was mapped from text values to numbers
+            (e.g., 'Less than 5 hours' → 1, '5-6 hours' → 2, ...).
           </li>
-          <li><a href="#preparation-summary">Preparation Summary</a></li>
+          <li>
+            <strong>Missing value check:</strong> The dataset contains <strong>no missing values</strong>, so no
+            imputation or row removal was needed.
+          </li>
+          <li>
+            <strong>Duplicate row check:</strong> <strong>No duplicate rows</strong> were found in the dataset.
+          </li>
+          <li>
+            <strong>Outlier handling:</strong> Rows with outlier values were removed to improve model accuracy.
+          </li>
+          <li>
+            <strong>Dropping unnecessary columns:</strong> Columns such as id, Profession, City, etc. that are not
+            useful for prediction were removed.
+          </li>
+          <li>
+            <strong>Encoding categorical variables:</strong> One-hot encoding was used to convert categorical variables
+            into numeric format.
+          </li>
+          <li>
+            <strong>Feature scaling:</strong> StandardScaler was used to normalize input features to a standard normal
+            distribution.
+          </li>
         </ul>
-      </aside>
-    </main>
+      </div>
+    </section>
 
-    <script src="js/script.js"></script>
-  </body>
+    <aside class="content-summary">
+      <h4>On this page</h4>
+      <ul>
+        <li>
+          <a href="#overview">About Dataset</a>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#data-description">Data Description</a></li>
+            <li><a href="#key-highlights">Key Highlights</a></li>
+            <li>
+              <a href="#usage-applications">Usage & Potential Applications</a>
+            </li>
+            <li><a href="#ethical-note">Ethical Note</a></li>
+            <li><a href="#dataset-samples">Dataset Samples</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#EDA">EDA</a>
+        </li>
+        <li><a href="#preparation-summary">Preparation Summary</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+
 </html>
