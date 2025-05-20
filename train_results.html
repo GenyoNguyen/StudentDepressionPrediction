@@ -98,6 +98,11 @@
       color: var(--text-color);
     }
 
+
+    .model-metrics-group img {
+      background-color: #ffffff;
+    }
+
     .classification-report {
       background: var(--header-bg);
       padding: 1rem;
@@ -331,7 +336,7 @@
 
         <div class="model-report">
           <h3 id="logistic-regression">Logistic Regression</h3>
-          <div class="model-metrics-group">
+          <div class="visualization-group">
             <div>
               <h5>Scikit-learn Implementation</h5>
               <img src="static/dataset/results/models/logreg_sklearn.png" alt="Logistic Regression (sklearn)" />
@@ -386,32 +391,14 @@
 
         <div class="model-report">
           <h3 id="knn">K-Nearest Neighbors (KNN)</h3>
-          <div class="model-metrics-group">
+          <div class="visualization-group">
             <div>
               <h5>Scikit-learn Implementation</h5>
-              <pre class="classification-report">
-              precision    recall  f1-score   support
-
-           0       0.81      0.74      0.77      2268
-           1       0.83      0.88      0.86      3301
-
-    accuracy                           0.82      5569
-   macro avg       0.82      0.81      0.82      5569
-weighted avg       0.82      0.82      0.82      5569
-                </pre>
+              <img src="static/dataset/results/models/knn_sklearn.png" alt="KNN (sklearn)" />
             </div>
             <div>
               <h5>Scratch Implementation</h5>
-              <pre class="classification-report">
-              precision    recall  f1-score   support
-
-           0       0.83      0.71      0.77      2268
-           1       0.82      0.90      0.86      3301
-
-    accuracy                           0.82      5569
-   macro avg       0.82      0.81      0.81      5569
-weighted avg       0.82      0.82      0.82      5569
-                </pre>
+              <img src="static/dataset/results/models/knn_scratch.png" alt="KNN (scratch)" />
             </div>
           </div>
           <h4>ROC Curve Analysis</h4>
@@ -454,32 +441,14 @@ weighted avg       0.82      0.82      0.82      5569
 
         <div class="model-report">
           <h3 id="random-forest">Random Forest</h3>
-          <div class="model-metrics-group">
+          <div class="visualization-group">
             <div>
               <h5>Scikit-learn Implementation</h5>
-              <pre class="classification-report">
-              precision    recall  f1-score   support
-
-           0       0.82      0.79      0.81      2268
-           1       0.86      0.88      0.87      3301
-
-    accuracy                           0.84      5569
-   macro avg       0.84      0.84      0.84      5569
-weighted avg       0.84      0.84      0.84      5569
-                </pre>
+              <img src="static/dataset/results/models/rf_sklearn.png" alt="Random Forest (sklearn)" />
             </div>
             <div>
               <h5>Scratch Implementation</h5>
-              <pre class="classification-report">
-              precision    recall  f1-score   support
-
-           0       0.81      0.78      0.80      2268
-           1       0.85      0.87      0.86      3301
-
-    accuracy                           0.84      5569
-   macro avg       0.83      0.83      0.83      5569
-weighted avg       0.84      0.84      0.84      5569
-                </pre>
+              <img src="static/dataset/results/models/rf_scratch.png" alt="Random Forest (scratch)" />
             </div>
           </div>
           <h4>ROC Curve Analysis</h4>
@@ -526,32 +495,14 @@ weighted avg       0.84      0.84      0.84      5569
 
         <div class="model-report">
           <h3 id="svm">Support Vector Machine (SVM)</h3>
-          <div class="model-metrics-group">
+          <div class="visualization-group">
             <div>
               <h5>Scikit-learn Implementation</h5>
-              <pre class="classification-report">
-              precision    recall  f1-score   support
-
-           0       0.83      0.80      0.81      2268
-           1       0.87      0.88      0.88      3301
-
-    accuracy                           0.85      5569
-   macro avg       0.85      0.84      0.84      5569
-weighted avg       0.85      0.85      0.85      5569
-                </pre>
+              <img src="static/dataset/results/models/svm_sklearn.png" alt="SVM (sklearn)" />
             </div>
             <div>
               <h5>Scratch Implementation</h5>
-              <pre class="classification-report">
-              precision    recall  f1-score   support
-
-           0       0.81      0.82      0.81      2268
-           1       0.88      0.87      0.87      3301
-
-    accuracy                           0.85      5569
-   macro avg       0.84      0.84      0.84      5569
-weighted avg       0.85      0.85      0.85      5569
-                </pre>
+              <img src="static/dataset/results/models/svm_scratch.png" alt="SVM (scratch)" />
             </div>
           </div>
           <h4>ROC Curve Analysis</h4>
