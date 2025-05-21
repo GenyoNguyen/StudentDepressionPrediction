@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch("https://8687-14-169-55-118.ngrok-free.app/predict", {
+            const response = await fetch("https://0ad4-1-55-200-165.ngrok-free.app/predict", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
